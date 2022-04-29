@@ -1,6 +1,11 @@
 <script>
-    alert(`name: Robert Parker
-email: roparker@pdx.edu
-github: diaboloshogunate@gmail.com
-discord: diaboloshogunate#9086`);
+    (function main() {
+        const name    = 'Name: Robert Parker'
+        const email   = 'Email: roparker@pdx.edu'
+        const github  = 'Github: diaboloshogunate@gmail.com'
+        const discord = 'Discord: diaboloshogunate#9086'
+        const info    = [name, email, github, discord].join('\n')
+
+        alert(info);
+    })();
 </script>
