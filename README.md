@@ -1,4 +1,5 @@
 # CS300-Project
 
-Product Owner: Nate Rubie
+Product Owner: Nate Ruble
+
 Scrum Master: London Joseph
