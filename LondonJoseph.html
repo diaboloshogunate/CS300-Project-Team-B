@@ -1,0 +1,17 @@
+<script>
+    function doSomething() {
+        if (form.operation.value == "Email")
+            alert("ljoseph@pdx.edu");
+        if (form.operation.value == "Standing")
+            alert("Senior")
+    }
+</script>
+
+<h1>London Joseph</h1>
+<form name="form">
+    <select name="operation">
+        <option value="Email">Email</option>
+        <option value="Standing">Standing</option>
+    </select>
+    <input type="button" value="Go" onclick="doSomething()">
+</form>
