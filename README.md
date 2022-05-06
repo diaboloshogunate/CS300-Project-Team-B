@@ -6,10 +6,11 @@
 
 ## Meet the team
 
-| Role          | Name          |
-|---------------|---------------|
-| Product Owner | Nate Ruble    |
-| Scrum Master  | London Joseph |
-| Engineer      | Minh Tran     |
-| Engineer      | William Newby |
-| Engineer      | Robert Parker |
+| Role          | Name                                                 |
+|---------------|------------------------------------------------------|
+| Product Owner | [Nate Ruble](https://github.com/nateruble)           | 
+| Scrum Master  | [London Joseph](https://github.com/ELondonJ)         |
+| Engineer      | [Minh Tran](https://github.com/MinhTranPDX)          |
+| Engineer      | [William Newby](https://github.com/W1Newby)          |
+| Engineer      | [Evan Fiske](https://github.com/EvanFiske)           |
+| Engineer      | [Robert Parker](https://github.com/diaboloshogunate) |
