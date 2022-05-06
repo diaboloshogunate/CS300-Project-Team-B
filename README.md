@@ -2,7 +2,7 @@
 
 ## How to play
 
-[Open in browser](index.html)
+[Open in browser](https://htmlpreview.github.io/?https://github.com/diaboloshogunate/CS300-Project-Team-B/blob/main/index.html)
 
 ## Meet the team
 
