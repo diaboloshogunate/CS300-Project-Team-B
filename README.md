@@ -1,5 +1,15 @@
 # CS300-Project
 
-Product Owner: Nate Ruble
+## How to play
 
-Scrum Master: London Joseph
+[Open in browser](index.html)
+
+## Meet the team
+
+| Role          | Name          |
+|---------------|---------------|
+| Product Owner | Nate Ruble    |
+| Scrum Master  | London Joseph |
+| Engineer      | Minh Tran     |
+| Engineer      | William Newby |
+| Engineer      | Robert Parker |
