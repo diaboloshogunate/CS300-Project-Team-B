@@ -2,11 +2,13 @@ class Player {
     #position
     #energy
     #supplies
+    #boxBoundsLength
 
-    constructor(position, energy, supplies) {
+    constructor(position, energy, supplies, boxBoundsLength) {
         this.#position = position || new Vector(0,0)
         this.#energy   = energy || 1000
         this.#supplies = supplies || 100
+        this.#boxBoundsLength = boxBoundsLength || 127
     }
 
     get position() {
@@ -42,26 +44,47 @@ class Player {
         this.#supplies = value
     }
 
+    get boxBoundsLength() {
+        return this.#boxBoundsLength
+    }
+
+    set boxBoundsLength(value) {
+        if(!Number.isSafeInteger(value) || value < 0 || value > 100)
+            throw `Invalid boxBoundsLength. Must be a safe integer between 0-100 (inclusive). Provided ${value}`
+
+        this.#boxBoundsLength = value
+    }
+
     move(direction, magnitude) {
         this.#validateDirection(direction)
         this.#validateMagnitude(magnitude)
 
         let movement = this.#polarToCoordinate(direction, magnitude)
+        let nextPosition = new Vector(this.position.x + movement.x, this.position.y + movement.y)
 
-        this.position = new Vector(this.position.x + movement.x, this.position.y + movement.y)
+        if( nextPosition.x <= 0 || nextPosition.x > this.#boxBoundsLength || nextPosition.y <= 0 || nextPosition.y > this.#boxBoundsLength)
+            return this.activateWormhole()
+
+        this.position = nextPosition
         this.supplies = this.supplies - 2
         this.energy = this.energy - 10 * magnitude
     }
 
+    activateWormhole() {
+        this.position.x = Math.floor(Math.random() * this.boxBoundsLength) + 1;
+        this.position.y = Math.floor(Math.random() * this.boxBoundsLength) + 1;
+        this.energy = this.energy - 10
+    }
+
     #polarToCoordinate(direction, magnitude) {
-        return new Vector(magnitude * Math.cos(direction), magnitude * Math.sin(direction))
+        return new Vector(Math.round(magnitude * Math.cos(direction)), Math.round(magnitude * Math.sin(direction)))
     }
 
     #validateDirection(direction) {
-        let allowedDirections = [0, 90, 180, 270];
+        let parsedDirection = parseFloat(direction)
 
-        if(!allowedDirections.includes(direction))
-            throw `Invalid direction. Allowed values are ${allowedDirections.join(', ')}. Provided ${coordinate}`
+        if(isNaN(parsedDirection))
+            throw `Invalid magnitude. Must be a valid float. Provided ${direction}`
     }
 
     #validateMagnitude(magnitude)
