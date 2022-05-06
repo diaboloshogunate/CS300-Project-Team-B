@@ -62,7 +62,7 @@ class Player {
         let movement = this.#polarToCoordinate(direction, magnitude)
         let nextPosition = new Vector(this.position.x + movement.x, this.position.y + movement.y)
 
-        if( nextPosition.x <= 0 || nextPosition.x > this.#boxBoundsLength || nextPosition.y <= 0 || nextPosition.y > this.#boxBoundsLength)
+        if( nextPosition.x <= 0 || nextPosition.x > this.boxBoundsLength || nextPosition.y <= 0 || nextPosition.y > this.boxBoundsLength)
             return this.activateWormhole()
 
         this.position = nextPosition
