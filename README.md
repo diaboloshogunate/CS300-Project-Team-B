@@ -1,9 +1,10 @@
 # CS300-Project
 
-## How to play
+## Project setup
 
-[Play now](https://htmlpreview.github.io/?https://github.com/diaboloshogunate/CS300-Project-Team-B/blob/main/index.html)
-[Run tests](https://htmlpreview.github.io/?https://github.com/diaboloshogunate/CS300-Project-Team-B/blob/main/tests.html)
+- clone the repo
+- open `index.html` to play the game
+- open `test.html` to run the test suite
 
 ## Meet the team
 
