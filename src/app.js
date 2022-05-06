@@ -1,4 +1,4 @@
-const player1 = new Player();
-console.log(player1.name);
-v1 = new Vector(1,2);
-console.log(v1.y);
+const startingPosition = new Vector(0,0)
+const startingEnergy   = 1000
+const startingSupplies = 100
+const player           = new Player(startingPosition, startingEnergy, startingSupplies)
