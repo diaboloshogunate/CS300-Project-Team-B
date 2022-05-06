@@ -2,7 +2,8 @@
 
 ## How to play
 
-[Open in browser](https://htmlpreview.github.io/?https://github.com/diaboloshogunate/CS300-Project-Team-B/blob/main/index.html)
+[Play now](https://htmlpreview.github.io/?https://github.com/diaboloshogunate/CS300-Project-Team-B/blob/main/index.html)
+[Run tests](https://htmlpreview.github.io/?https://github.com/diaboloshogunate/CS300-Project-Team-B/blob/main/tests.html)
 
 ## Meet the team
 
