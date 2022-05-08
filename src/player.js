@@ -2,13 +2,13 @@ class Player {
     #position
     #energy
     #supplies
-    #boxBoundsLength
+    #mapSize
 
-    constructor(position, energy, supplies, boxBoundsLength) {
+    constructor(position, energy, supplies, mapSize) {
         this.#position = position || new Vector(0,0)
         this.#energy   = energy || 1000
         this.#supplies = supplies || 100
-        this.#boxBoundsLength = boxBoundsLength || 127
+        this.#mapSize = mapSize || 127
     }
 
     get position() {
@@ -44,15 +44,15 @@ class Player {
         this.#supplies = value
     }
 
-    get boxBoundsLength() {
-        return this.#boxBoundsLength
+    get mapSize() {
+        return this.#mapSize
     }
 
-    set boxBoundsLength(value) {
+    set mapSize(value) {
         if(!Number.isSafeInteger(value) || value < 0 || value > 100)
             throw `Invalid boxBoundsLength. Must be a safe integer between 0-100 (inclusive). Provided ${value}`
 
-        this.#boxBoundsLength = value
+        this.#mapSize = value
     }
 
     move(direction, magnitude) {
@@ -62,7 +62,7 @@ class Player {
         let movement = this.#polarToCoordinate(direction, magnitude)
         let nextPosition = new Vector(this.position.x + movement.x, this.position.y + movement.y)
 
-        if( nextPosition.x <= 0 || nextPosition.x > this.boxBoundsLength || nextPosition.y <= 0 || nextPosition.y > this.boxBoundsLength)
+        if( nextPosition.x <= 0 || nextPosition.x > this.mapSize || nextPosition.y <= 0 || nextPosition.y > this.mapSize)
             return this.activateWormhole()
 
         this.position = nextPosition
@@ -71,8 +71,8 @@ class Player {
     }
 
     activateWormhole() {
-        this.position.x = Math.floor(Math.random() * this.boxBoundsLength) + 1;
-        this.position.y = Math.floor(Math.random() * this.boxBoundsLength) + 1;
+        this.position.x = Math.floor(Math.random() * this.mapSize) + 1;
+        this.position.y = Math.floor(Math.random() * this.mapSize) + 1;
         this.energy = this.energy - 10
     }
 
