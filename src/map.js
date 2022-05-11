@@ -1,10 +1,10 @@
 class Map {
     #size
     #cells
-    #visited
+    #viewed
 
     constructor(size, cells) {
-        this.size = size || 127
+        this.size = size || 128
         this.cells = cells
     }
 
@@ -16,40 +16,25 @@ class Map {
         this.#size = value
     }
 
-    get cells() {
-        return this.#cells
-    }
-
     set cells(value) {
         if(!Array.isArray(value) || value.length < this.size || !Array.isArray(value[0]) || value[0].length < this.size)
             throw `cells must be a multidimensional array`
 
         this.#cells = [[]]
+        this.#viewed = [[]]
         for (let i = 0; i < this.size; i++) {
-            this.#cells[i][i] = this.#cells[i][i]
+            for (let j = 0; i < this.size; j++) {
+                if(!value[i][i] instanceof Cell)
+                    throw `invalid cell at ${i}, ${j}. Expected instance of cell. Given ${value[i][i].name}`
+
+                this.#cells[i][j] = value[i][j]
+                this.#viewed[i][j] = false
+                //mark as viewed if its always viewable tile
+            }
         }
     }
 
-    getCell(x, y) {
-        return this.#cells[x][y]
-    }
-
-    get visited() {
-        return this.#visited
-    }
-
-    resetVisited() {
-        this.#visited = [[]]
-        for (let i = 0; i < this.size; i++) {
-            this.#visited[i][i] = false
-        }
-    }
-
-    markCellAsVisited(x, y) {
-        this.#visited[x][y] = true
-    }
-
-    hasCellBeenVisited(x, y) {
-        return this.#visited[x][y]
+    revealPosition(position) {
+        this.#viewed[position.x][position.y] = true
     }
 }
