@@ -2,13 +2,15 @@ class Player {
     #position
     #energy
     #supplies
-    #mapSize
+    #credits
+    #map
 
-    constructor(position, energy, supplies, mapSize) {
+    constructor(position, energy, supplies, credits, map) {
         this.#position = position || new Vector(0,0)
         this.#energy   = energy || 1000
         this.#supplies = supplies || 100
-        this.#mapSize = mapSize || 127
+        this.#credits = credits || 1000
+        this.map = map
     }
 
     get position() {
@@ -44,25 +46,32 @@ class Player {
         this.#supplies = value
     }
 
-    get mapSize() {
-        return this.#mapSize
+    get credits() {
+        return this.#credits
     }
 
-    set mapSize(value) {
+    set credits(value) {
         if(!Number.isSafeInteger(value) || value < 0 || value > 100)
-            throw `Invalid boxBoundsLength. Must be a safe integer between 0-100 (inclusive). Provided ${value}`
+            throw `Invalid credits. Must be a safe integer between 0-100 (inclusive). Provided ${value}`
 
-        this.#mapSize = value
+        this.#credits = value
+    }
+
+    set map(value) {
+        if(!value instanceof Map)
+            throw `Invalid type. Expected Map. Giver ${value.name}`
+
+        this.#map = value
     }
 
     move(direction, magnitude) {
         this.#validateDirection(direction)
         this.#validateMagnitude(magnitude)
 
-        let movement = this.#polarToCoordinate(direction, magnitude)
+        let movement = polarToCoordinate(direction, magnitude)
         let nextPosition = new Vector(this.position.x + movement.x, this.position.y + movement.y)
 
-        if( nextPosition.x <= 0 || nextPosition.x > this.mapSize || nextPosition.y <= 0 || nextPosition.y > this.mapSize)
+        if( nextPosition.x <= 0 || nextPosition.x > this.map.size || nextPosition.y <= 0 || nextPosition.y > this.map.size)
             return this.activateWormhole()
 
         this.position = nextPosition
@@ -71,13 +80,22 @@ class Player {
     }
 
     activateWormhole() {
-        this.position.x = Math.floor(Math.random() * this.mapSize) + 1;
-        this.position.y = Math.floor(Math.random() * this.mapSize) + 1;
+        this.position.x = Math.floor(Math.random() * this.map.size) + 1;
+        this.position.y = Math.floor(Math.random() * this.map.size) + 1;
         this.energy = this.energy - 10
     }
 
-    #polarToCoordinate(direction, magnitude) {
-        return new Vector(Math.round(magnitude * Math.cos(direction)), Math.round(magnitude * Math.sin(direction)))
+    scan(position, distance) {
+        const startX = clamp(position.x - distance, 0, this.map.size - 1)
+        const endX   = clamp(position.x + distance, 0, this.map.size - 1)
+        const startY = clamp(position.y - distance, 0, this.map.size - 1)
+        const endY   = clamp(position.y + distance, 0, this.map.size - 1)
+
+        for(let i = startX; i <= endX; i++) {
+            for(let j = startY; j <= endY; j++) {
+                this.#map.revealPosition(new Vector(i, j))
+            }
+        }
     }
 
     #validateDirection(direction) {
