@@ -57,6 +57,10 @@ class Player {
         this.#credits = value
     }
 
+    get map() {
+        return this.#map
+    }
+
     set map(value) {
         if(!value instanceof Map)
             throw `Invalid type. Expected Map. Giver ${value.name}`
