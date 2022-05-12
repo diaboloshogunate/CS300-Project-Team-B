@@ -68,21 +68,19 @@ class Player {
         this.#validateDirection(direction)
         this.#validateMagnitude(magnitude)
 
-        let movement = polarToCoordinate(direction, magnitude)
-        let nextPosition = new Vector(this.position.x + movement.x, this.position.y + movement.y)
+        // move one unit at a time so collisions can trigger
+        // base each step on the starting unit and increment magnitude by 1
+        // this ensures that you hit up to n cells where n is the magnitude
+        const startingPosition = this.position
+        for(let distanceTraveled = 1; distanceTraveled <= magnitude; distanceTraveled++) {
+            let movement = polarToCoordinate(direction, distanceTraveled)
+            this.position = new Vector(startingPosition.x + movement.x, startingPosition.y + movement.y)
+            this.energy -= 10
+            this.#map.revealPosition(this.position)
+            this.#map.triggerPlayerCollision(this)
+        }
 
-        if( nextPosition.x <= 0 || nextPosition.x > this.map.size || nextPosition.y <= 0 || nextPosition.y > this.map.size)
-            return this.activateWormhole()
-
-        this.position = nextPosition
         this.supplies = this.supplies - 2
-        this.energy = this.energy - 10 * magnitude
-    }
-
-    activateWormhole() {
-        this.position.x = Math.floor(Math.random() * this.map.size) + 1;
-        this.position.y = Math.floor(Math.random() * this.map.size) + 1;
-        this.energy = this.energy - 10
     }
 
     scan(position, distance) {
