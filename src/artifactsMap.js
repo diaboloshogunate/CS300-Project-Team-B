@@ -29,7 +29,6 @@ function admin_init(){
     console.log('hello');
     let form = document.createElement('form');
     form.style.zIndex = "1";
-    form.setAttribute("class","card p-3 w-50 my-10 mx-auto bg-light shadow fixed-top");
     form.setAttribute("onSubmit","setArtifacts()");
     form.setAttribute("id","admin_form");
     form.style.border = "2px solid black"
@@ -38,23 +37,19 @@ function admin_init(){
     console.log(form)
     body.append(form);
     let h1= document.createElement('h1');
-    h1.setAttribute("class", "card-title mx-auto");
     let h1_content = document.createTextNode('Artifact Placement');
     h1.appendChild(h1_content);
     h1.style.margin = "10px 20px"
     form.append(h1);
     let div_body = document.createElement('div');
     div_body.style.margin = "20px 60px"
-    div_body.setAttribute("class", "card-body mx-auto");
     let formContain = document.createElement('div')
     form.append(div_body);
     //planets input
     for (let i = 1; i<= 7; i++) {
         const element = document.createElement('div');
-        element.setAttribute("class", "m-1");
         div_body.append(element);
         let label = document.createElement('label');
-        label.setAttribute("class","mx-3");
         label.setAttribute("for", "planet" + i);
         let planet = document.createTextNode("Planet " + i);
         label.appendChild(planet);
@@ -80,14 +75,10 @@ function admin_init(){
     let group_label = document.createElement('label');
     let recipe = document.createTextNode("Recipe Location");
     group_label.appendChild(recipe);
-    group_div.setAttribute("class", "input-group mb-4");
-    pre_div.setAttribute("class", "input-group-prepend");
-    group_label.setAttribute("class", "input-group-text")
     group_label.setAttribute("for", "inputGroupSelect01");
     pre_div.append(group_label);
     group_div.append(pre_div);
     let select1 = document.createElement('select');
-    select1.setAttribute("class", "custom-select")
     select1.setAttribute("id", "inputGroupSelect01")
     group_div.append(select1);
     div_body.append(group_div);
@@ -100,10 +91,8 @@ function admin_init(){
     }
     //Astroid field input
     const element = document.createElement('div');
-    element.setAttribute("class", "m-1");
     div_body.append(element);
     let label = document.createElement('label');
-    label.setAttribute("class","mx-3");
     label.setAttribute("for", "astroid_field");
     let astField = document.createTextNode("Astroid Field");
     label.appendChild(astField);
@@ -125,10 +114,8 @@ function admin_init(){
     //Space stations input
     for (let i = 1; i<= 2; i++) {
         const element = document.createElement('div');
-        element.setAttribute("class", "m-1");
         div_body.append(element);
         let label = document.createElement('label');
-        label.setAttribute("class","mx-1");
         label.setAttribute("for", "space_station" + i);
         let planet = document.createTextNode("Space Station " + i);
         label.appendChild(planet);
@@ -151,15 +138,12 @@ function admin_init(){
     }
     //Submit and reset buttons
     let div = document.createElement('div')
-    div.setAttribute("class", "row my-3 mx-2");
     div.style.marginTop = "10px"
     let submit = document.createElement('input');
     let reset = document.createElement('input');
     let psswrd = document.createElement('input');
-    submit.setAttribute("class", "btn btn-primary btn-md col-6 border-light");
     submit.setAttribute('type', "submit");
     submit.setAttribute('value', "Submit");
-    reset.setAttribute("class", "btn btn-secondary btn-md col-6 border-light");
     reset.setAttribute('type', "submit");
     reset.setAttribute('value', "Close");
     psswrd.setAttribute('type', 'password');
