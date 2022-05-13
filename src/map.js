@@ -41,6 +41,20 @@ class Map {
         this.#cells[position.x][position.y] = cell
     }
 
+    getRandomCellPosition() {
+        return new Vector(Math.floor(Math.random() * this.#cells.length) + 1, Math.floor(Math.random() * this.#cells.length) + 1)
+    }
+
+    replaceRandomEmptyCell(cell) {
+        let position = this.getRandomCellPosition()
+        let cellAtPosition = this.#cells[position.x][position.y]
+        while(cellAtPosition.constructor.name !== "Cell") { // violates liskov principle, refactor so cells contain things instead of things extending from cell
+            position = this.getRandomCellPosition()
+        }
+
+        this.#cells[position.x][position.y] = cell
+    }
+
     revealPosition(position) {
         this.get(position).isHidden = false
     }
@@ -51,5 +65,18 @@ class Map {
 
     triggerPlayerCollision(player) {
         this.#cells[player.position.x][player.position.y].onPlayerCollision(player)
+    }
+
+    toString()
+    {
+        return `<div class="game-map">${this.#getStringRow(this.#cells, `div`, `map-row`)}</div>`;
+    }
+
+    #getStringRow(data, type, classes) {
+        return data.reverse().map(row => `<${type} class="${classes}">${this.#getStringCell(row, 'div', 'map-cell')}</${type}>`).join('')
+    }
+
+    #getStringCell(data, type, classes) {
+        return data.map(cell => `<${type} class="${classes}" style="background-color: ${cell.isHidden ? `#000` : cell.backgroundColor};">&nbsp;</${type}>`).join('');
     }
 }
