@@ -8,7 +8,7 @@ QUnit.module('wormhole.js', function() {
     QUnit.test('wormhole onPlayerCollision', assert => {
         const map = new Map(2)
         const wormhole = new Wormhole()
-        const player = new Player(new Vector(1,1), 100, 100, 100, map)
+        const player = new Player(new Vector(1,1), 100, 100, 100, 100, map)
         wormhole.onPlayerCollision(player)
         assert.equal(player.position.x === 1 && player.position.y === 1, false)
     });
