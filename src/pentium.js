@@ -9,6 +9,10 @@ class Pentium extends Planet {
         this.#recipe = hasRecipe || false
     }
 
+    get backgroundColor() {
+        return `#5ac5f3`
+    }
+
     get name () {
         return `Pentium-${this.#number}`
     }

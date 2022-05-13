@@ -1,12 +1,12 @@
 class Cell {
-    #isHidden = true
+    isHidden = true
 
     get isHidden () {
-        return this.#isHidden
+        return this.isHidden
     }
 
     set isHidden (value) {
-        this.#isHidden = value
+        this.isHidden = value
     }
 
     get backgroundColor() {
