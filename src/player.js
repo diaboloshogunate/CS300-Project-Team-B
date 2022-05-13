@@ -136,8 +136,8 @@ class Player {
             throw `Invalid magnitude. Must be a safe integer. Provided ${magnitude}`
     }
 
-    #validateSupplies() {
-        if (this.#supplies == 0)
+    #validateSupplies(){
+        if(this.#supplies <= 0)
             throw `Ran out of supplies. You lose the game`
     }
 
