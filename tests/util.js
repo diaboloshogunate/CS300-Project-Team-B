@@ -5,14 +5,14 @@ QUnit.module('util.js', function() {
         assert.equal(clamp(3,0,2), 2, `clamp 3 between 0 and 2`)
     });
     QUnit.test('filled array', assert => {
-        assert.equal(JSON.stringify(filledArray(0, 0)), JSON.stringify([]))
-        assert.equal(JSON.stringify(filledArray(1, 0)), JSON.stringify([0]))
-        assert.equal(JSON.stringify(filledArray(2, "a")), JSON.stringify(["a", "a"]))
+        assert.equal(JSON.stringify(filledArray(0, () => 0)), JSON.stringify([]))
+        assert.equal(JSON.stringify(filledArray(1, () => 0)), JSON.stringify([0]))
+        assert.equal(JSON.stringify(filledArray(2, () => "a")), JSON.stringify(["a", "a"]))
     });
     QUnit.test('filled array2', assert => {
-        assert.equal(JSON.stringify(filledArray2(0, 0)), JSON.stringify([[]]))
-        assert.equal(JSON.stringify(filledArray2(1, 0)), JSON.stringify([[0]]))
-        assert.equal(JSON.stringify(filledArray2(2, "a")), JSON.stringify([["a", "a"], ["a", "a"]]))
+        assert.equal(JSON.stringify(filledArray2(0, () => 0)), JSON.stringify([[]]))
+        assert.equal(JSON.stringify(filledArray2(1, () => 0)), JSON.stringify([[0]]))
+        assert.equal(JSON.stringify(filledArray2(2, () => "a")), JSON.stringify([["a", "a"], ["a", "a"]]))
     });
     QUnit.test('degreeToRad', assert => {
         assert.equal(degreeToRad(0), 0)
