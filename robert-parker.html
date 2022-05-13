@@ -8,7 +8,7 @@
     <title>Robert Parker Notes/Examples</title>
     <style>
         #game-map {
-            background: #000;
+            position: relative;
         }
         #game-map .map-row {
             height: 16px;
@@ -19,19 +19,35 @@
             height: 16px;
             float: left;
         }
+        #game-map-player {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #0f0;
+            border-radius: 100%;
+        }
+        .table th {
+            white-space: nowrap;
+            width: 1%;
+            vertical-align: middle;
+        }
+        .table td {
+            vertical-align: middle;
+        }
     </style>
 </head>
 <body class="text-white bg-dark">
 <div class="container">
     <section id="game-example">
         <div id="game-map"></div>
-        <div class="d-flex">
-            <div class="flex-shrink-1 mx-5">
-                <h4>Actions</h4>
-                <form class="d-flex">
+        <div class="card text-dark my-5" style="width: 1024px">
+            <div class="card-body">
+                <h3>Stats</h3>
+                <div id="game-player-stats"></div>
+                <form class="d-flex" id="player-action-move">
                     <div class="d-flex">
                         <div>
-                            <select class="form-select rounded-0" id="direction" aria-label="direction" required>
+                            <select class="form-select rounded-0" id="direction" name="direction" aria-label="direction" required>
                                 <option value="0" selected>0&deg;</option>
                                 <option value="30">30&deg;</option>
                                 <option value="60">60&deg;</option>
@@ -49,15 +65,13 @@
                     </div>
                     <div class="d-flex">
                         <div>
-                            <input class="form-control rounded-0" type="number" id="distance" min="1" step="1" value="1" required>
+                            <input class="form-control rounded-0" id="distance" name="distance" type="number" min="1" step="1" value="1" required>
                         </div>
                     </div>
                     <div class="d-flex">
                         <button class="btn btn-primary rounded-0" type="submit" name="action" value="move">Move</button>
                     </div>
                 </form>
-                <h4 class="mt-5">Stats</h4>
-                <div id="game-screen"><pre><code class="language-js">null</code></pre></div>
             </div>
         </div>
     </section>
@@ -92,38 +106,35 @@
         map.replaceRandomEmptyCell(celeron)
         map.replaceRandomEmptyCell(xeon)
         map.replaceRandomEmptyCell(ryzen)
-        const player = new Player(new Vector(1, 1), 100, 100, 1000, map)
+        const player = new Player(new Vector(0, 0), 100, 100, 100, 1000, map)
 
         // functions
-        const updateScreens = () => {
-            const debug = `{
-    "Current Location": "(${player.position.x}, ${player.position.y})",
-    "Energy": ${player.energy},
-    "Supplies": "${player.supplies}%",
-    "Credits": null,
-    "Message": null,
-}`
-            gameScreen.innerHTML = `<pre class="mt-0"><code class="language-js">${debug}</code></pre>`;
-            gameMap.innerHTML    = player.map.toString();
+        const render = () => {
+            playerStats.innerHTML = player.toString()
+            gameMap.innerHTML     = player.map.toString() + `<div id="game-map-player" style="left: ${player.position.x * 16 + 4}px; bottom: ${player.position.y * 16 + 4}px;"></div>`
             Prism.highlightAll();
         }
 
         const degreeToRad = degree => degree * (Math.PI / 180.0)
 
         const play = () => {
-            const degree = parseFloat(gameController.elements['angle'].value)
-            const rad = degree * (Math.PI / 180.0)
-            const magnitude = parseInt(gameController.elements['magnitude'].value)
-            player.move(rad, magnitude)
-            updateScreens()
+            const degree = parseFloat(moveForm.elements['direction'].value)
+            const magnitude = parseInt(moveForm.elements['distance'].value)
+            player.move(degreeToRad(degree), magnitude)
+            render()
         }
 
-        // html/events
-        const gameScreen = document.getElementById('game-screen')
-        const gameMap = document.getElementById('game-map')
+        // html views/events
+        const gameMap     = document.getElementById('game-map')
+        const playerStats = document.getElementById('game-player-stats')
+        const moveForm    = document.getElementById('player-action-move')
+        moveForm.addEventListener('submit', (e) => {
+            e.preventDefault()
+            play()
+        })
 
         // initialize
-        updateScreens()
+        render()
     })();
 </script>
 </body>
