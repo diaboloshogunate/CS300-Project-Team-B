@@ -10,7 +10,7 @@ class Player {
         this.#energy   = energy || 1000
         this.#supplies = supplies || 100
         this.#credits = credits || 1000
-        this.map = map
+        this.#map = map
     }
 
     get position() {
@@ -72,6 +72,7 @@ class Player {
         this.#validateDirection(direction)
         this.#validateMagnitude(magnitude)
 
+
         // move one unit at a time so collisions can trigger
         // base each step on the starting unit and increment magnitude by 1
         // this ensures that you hit up to n cells where n is the magnitude
@@ -85,6 +86,7 @@ class Player {
         }
 
         this.supplies = this.supplies - 2
+        this.#validateSupplies()
     }
 
     scan(position, distance) {
@@ -111,5 +113,10 @@ class Player {
     {
         if(!Number.isSafeInteger(magnitude))
             throw `Invalid magnitude. Must be a safe integer. Provided ${magnitude}`
+    }
+
+    #validateSupplies(){
+        if(this.#supplies == 0)
+            throw `Ran out of supplies. You lose the game`
     }
 }
