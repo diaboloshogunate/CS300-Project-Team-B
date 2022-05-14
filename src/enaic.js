@@ -1,9 +1,7 @@
 class Eniac extends Planet {
-    get isHidden () {
-        return false
-    }
+    isHidden = false
 
     get backgroundColor() {
-        return `#ccc`
+        return `#333`
     }
 }

@@ -4,7 +4,7 @@ class Map {
 
     constructor(size, cells) {
         this.size = size || 128
-        this.cells = cells || filledArray2(this.size, new Cell())
+        this.cells = cells || filledArray2(this.size, () => new Cell())
     }
 
     get size() {
@@ -19,7 +19,7 @@ class Map {
         if(!Array.isArray(value) || value.length < this.size || !Array.isArray(value[0]) || value[0].length < this.size)
             throw `cells must be a multidimensional array`
 
-        this.#cells = filledArray2(this.size, null)
+        this.#cells = filledArray2(this.size, () => null)
         for (let i = 0; i < this.size; i++) {
             for (let j = 0; j < this.size; j++) {
                 if(!value[i][i] instanceof Cell)
@@ -30,8 +30,12 @@ class Map {
         }
     }
 
+    is(position) {
+        return this.#cells[position.x] !== undefined && this.#cells[position.y] !== undefined
+    }
+
     get(position) {
-        return this.#cells[position.x][position.y] || new Wormhole()
+        return this.#cells[position.x][position.y]
     }
 
     set(position, cell) {
@@ -69,14 +73,15 @@ class Map {
 
     toString()
     {
-        return `<div class="game-map">${this.#getStringRow(this.#cells, `div`, `map-row`)}</div>`;
-    }
-
-    #getStringRow(data, type, classes) {
-        return data.reverse().map(row => `<${type} class="${classes}">${this.#getStringCell(row, 'div', 'map-cell')}</${type}>`).join('')
-    }
-
-    #getStringCell(data, type, classes) {
-        return data.map(cell => `<${type} class="${classes}" style="background-color: ${cell.isHidden ? `#000` : cell.backgroundColor};">&nbsp;</${type}>`).join('');
+        let string = `<div class="game-map">`
+        for(let y = this.#cells.length - 1; y >= 0; y--) {
+            string += `<div class="map-row">`
+            for(let x = 0; x < this.#cells.length; x++) {
+                const cell = this.#cells[x][y]
+                string += `<div class="map-cell" style="background-color: ${cell.isHidden ? `#666` : cell.backgroundColor};">&nbsp;</div>`
+            }
+            string += `</div>`
+        }
+        return string
     }
 }

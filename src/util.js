@@ -4,22 +4,26 @@ const polarToCoordinate = (direction, magnitude)  => new Vector(Math.round(magni
 
 const degreeToRad = (degree) => { return degree * (Math.PI / 180.0) }
 
-const filledArray = (size, value) => {
+const filledArray = (size, generator) => {
     const a = []
     for (let i = 0; i < size; i++) {
-        a.push(value)
+        a.push(generator())
     }
 
     return a
 }
 
-const filledArray2 = (size, value) => {
+const filledArray2 = (size, generator) => {
     if(!size) return [[]]
 
     const a = []
     for (let i = 0; i < size; i++) {
-        a.push(filledArray(size, value))
+        a.push(filledArray(size, generator))
     }
 
     return a
+}
+
+const normalize = (value, maxValue) => {
+    return clamp(value / maxValue, 0, maxValue) * 100
 }

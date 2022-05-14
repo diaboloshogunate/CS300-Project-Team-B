@@ -1,16 +1,18 @@
 class Player {
     #position
     #energy
+    #energyCapacity
     #supplies
     #credits
     #map
 
-    constructor(position, energy, supplies, credits, map) {
-        this.#position = position || new Vector(0,0)
-        this.#energy   = energy || 1000
-        this.#supplies = supplies || 100
-        this.#credits = credits || 1000
-        this.#map = map
+    constructor(position, energy, energyCapacity, supplies, credits, map) {
+        this.#position       = position || new Vector(0,0)
+        this.#energy         = energy || 1000
+        this.#energyCapacity = energyCapacity || 1000
+        this.#supplies       = supplies || 100
+        this.#credits        = credits || 1000
+        this.map             = map
     }
 
     get position() {
@@ -22,6 +24,8 @@ class Player {
             throw `Invalid position. Position must be an instance of value. Provided ${value.name}`
 
         this.#position = value
+        this.#map.revealPosition(this.position)
+        this.#map.triggerPlayerCollision(this)
     }
 
     get energy() {
@@ -32,7 +36,18 @@ class Player {
         if(!Number.isSafeInteger(value))
             throw `Invalid energy. Must be a safe integer. Provided ${value}`
 
-        this.#energy = value
+        this.#energy = clamp(value, 0, this.energyCapacity)
+    }
+
+    get energyCapacity() {
+        return this.#energyCapacity
+    }
+
+    set energyCapacity(value) {
+        if(!Number.isSafeInteger(value))
+            throw `Invalid energy. Must be a safe integer. Provided ${value}`
+
+        this.#energyCapacity = value
     }
 
     get supplies() {
@@ -79,10 +94,16 @@ class Player {
         const startingPosition = this.position
         for(let distanceTraveled = 1; distanceTraveled <= magnitude; distanceTraveled++) {
             let movement = polarToCoordinate(direction, distanceTraveled)
-            this.position = new Vector(startingPosition.x + movement.x, startingPosition.y + movement.y)
+            let nextPosition = new Vector(startingPosition.x + movement.x, startingPosition.y + movement.y)
+
+            if(!this.#map.is(nextPosition)) {
+                const wormhole = new Wormhole()
+                wormhole.onPlayerCollision(this)
+                break
+            }
+
+            this.position = nextPosition
             this.energy -= 10
-            this.#map.revealPosition(this.position)
-            this.#map.triggerPlayerCollision(this)
         }
 
         this.supplies = this.supplies - 2
@@ -116,7 +137,38 @@ class Player {
     }
 
     #validateSupplies(){
-        if(this.#supplies == 0)
+        if(this.#supplies <= 0)
             throw `Ran out of supplies. You lose the game`
+    }
+
+    toString() {
+        return`<table class="table table-sm table-hover table-borderless">
+            <tbody>
+                <tr>
+                    <th>Credits</th>
+                    <td>${this.credits}</td>
+                </tr>
+                <tr>
+                    <th>Position</th>
+                    <td>${this.position.x}, ${this.position.y}</td>
+                </tr>
+                <tr>
+                    <th>Energy</th>
+                    <td>
+                        <div class="progress" style="height: 24px;">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: ${normalize(this.energy, this.energyCapacity)}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">${this.energy}/${this.energyCapacity}</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Supplies</th>
+                    <td>
+                        <div class="progress" style="height: 24px;">
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: ${this.supplies}%;" aria-valuenow="${this.supplies}" aria-valuemin="0" aria-valuemax="100">${this.supplies}%</div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>`
     }
 }

@@ -3,16 +3,16 @@ class Wormhole extends Cell {
         if(!player instanceof Player)
             throw `onPlayerCollision requires the player is passed in as an argument`
 
-        let newPosition = this.#getNewPosition(player.map.length)
+        let newPosition = this.#getNewPosition(player.map.size)
         while(!this.#isValidNewPosition(player, newPosition))
-            newPosition = this.#getNewPosition(player.map.length)
+            newPosition = this.#getNewPosition(player.map.size)
 
         player.energy -= 10
         player.position = newPosition
     }
 
     #getNewPosition(maxPosition) {
-        return new Vector(Math.floor(Math.random() * maxPosition) + 1, Math.floor(Math.random() * maxPosition) + 1)
+        return new Vector(Math.floor(Math.random() * maxPosition), Math.floor(Math.random() * maxPosition))
     }
 
     #isValidNewPosition(player, newPosition) {
