@@ -45,4 +45,10 @@ QUnit.module('util.js', function() {
         assert.equal(coordinate.x, 1)
         assert.equal(coordinate.y, 1)
     });
+    QUnit.test('normalize value', assert => {
+        assert.equal(normalize(-1,1), 0)
+        assert.equal(normalize(2,1), 1)
+        assert.equal(normalize(0.5,1), 0.5)
+        assert.equal(normalize(50, 100), 0.5)
+    });
 })

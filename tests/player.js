@@ -38,4 +38,12 @@ QUnit.module('player.js', function() {
         assert.equal(player.supplies, 98, 'lost 2% in supplies on movement')
         assert.equal(player.energy, 970, 'lost 10 energy per unit moved')
     });
+
+    QUnit.test('move off grid', assert => {
+        let player = new Player(new Vector(0,0), 1000, 1000, 100, 1000, new Map(10))
+        player.move(degreeToRad(180), 1)
+
+        assert.false(player.position.x === 0 && player.position.x === 0, 'did not move')
+        assert.false(player.position.x === -1 && player.position.x === 0, 'did not trigger wormhole')
+    });
 })
