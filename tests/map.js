@@ -32,4 +32,9 @@ QUnit.module('map.js', function() {
         map.triggerPlayerCollision(playerSpy)
         assert.equal(cell.onPlayerCollision.calledOnce, true);
     });
+    QUnit.test('map get ransom cell position', assert => {
+        const map = new Map(4)
+        console.log(map.getRandomCellPosition())
+        assert.true(map.getRandomCellPosition() instanceof Vector)
+    });
 })
