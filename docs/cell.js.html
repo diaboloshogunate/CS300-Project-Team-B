@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: cell.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,52 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: cell.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>class Cell {
+    isHidden = true
+    backgroundColor = `#000`
 
+    /**
+     * check if the cell is hidden from the map
+     * @returns {boolean}
+     */
+    get isHidden () {
+        return this.isHidden
+    }
 
-    <h3> </h3>
+    /**
+     * set if the cell should be hidden from the map
+     * @param value
+     */
+    set isHidden (value) {
+        this.isHidden = value
+    }
 
+    // todo
+    playerChoices(player) {
+        // return array of string actions and the callable they will run if the player choose it?
+    }
 
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+    /**
+     * hand player collision
+     * @param {Player} player
+     */
+    onPlayerCollision(player) {
+        if(!player instanceof Player)
+            throw `onPlayerCollision requires the player is passed in as an argument`
+    }
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

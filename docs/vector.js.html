@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: vector.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,67 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: vector.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>class Vector {
+    x
+    y
 
+    /**
+     * create a vector
+     * @param {number} x
+     * @param {number} y
+     */
+    constructor(x, y) {
+        this.x = x || 0
+        this.y = y || 0
+    }
 
-    <h3> </h3>
+    /**
+     * get x position
+     * @returns {number}
+     */
+    get x () {
+        return this.x
+    }
 
+    /**
+     * set x position
+     * @param {number} value
+     */
+    set x(value) {
+        validateSafeInt(value)
 
+        this.x = value
+    }
 
+    /**
+     * get y position
+     * @returns {number}
+     */
+    get y() {
+        return this.y
+    }
 
+    /**
+     * set y position
+     * @param {number} value
+     */
+    set y(value) {
+        validateSafeInt(value)
 
-
-
-
-
-
-    
-
-
-
-
-
+        this.y = value
+    }
+}</code></pre>
+        </article>
+    </section>
 
 
 
