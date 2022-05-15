@@ -97,3 +97,33 @@ const validateType = (value, type) => {
     if(!value instanceof type)
         throw `Invalid type. value must be an instance of ${type}. Provided ${value.name}`
 }
+
+/**
+ * validate arrays size
+ * @param {array<*>} value
+ * @param {number} size
+ */
+const validateArraySize = (value, size) => {
+    if(!Array.isArray(value) || value.length !== size)
+        throw `Invalid value. Expected an array of size ${size}. Given ${value}`
+}
+
+/**
+ * validate a 2d arrays size
+ * @param {array<array<*>>} value
+ * @param {number} size
+ */
+const validateArray2Size = (value, size) => {
+    validateArraySize(value, size)
+    validateArraySize(value[0], size)
+}
+
+/**
+ * validate maps position
+ * @param {Vector} position
+ * @param {Map} map
+ */
+const validateMapPosition = (position, map) => {
+    if(!map.is(position))
+        throw `Invalid map position. Given ${position.x}, ${position.y}`
+}
