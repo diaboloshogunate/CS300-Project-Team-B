@@ -5,7 +5,12 @@
  * @param {number} max max allowed value
  * @returns {number}
  */
-const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
+const clamp = (num, min, max) => {
+    validateFloat(num)
+    validateFloat(min)
+    validateFloat(max)
+    return Math.min(Math.max(num, min), max);
+}
 
 /**
  * converts direction and magnitude to a vector
