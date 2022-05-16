@@ -23,14 +23,14 @@ QUnit.module('Vector', function() {
             () => {
                 new Vector(Math.pow(2, 53), 0)
             },
-            /^x must be a safe integer/
+            /^Invalid value. Must be a safe integer. Provided/
         )
 
         assert.throws(
             () => {
                 new Vector(0, Math.pow(2, 53))
             },
-            /^y must be a safe integer/
+            /^Invalid value. Must be a safe integer. Provided/
         )
     });
 
@@ -39,14 +39,14 @@ QUnit.module('Vector', function() {
             () => {
                 new Vector('a', 0)
             },
-            /^x must be a safe integer/
+            /^Invalid value. Must be a safe integer. Provided/
         )
 
         assert.throws(
             () => {
                 new Vector(0, 'b')
             },
-            /^y must be a safe integer/
+            /^Invalid value. Must be a safe integer. Provided/
         )
     });
 
@@ -55,14 +55,14 @@ QUnit.module('Vector', function() {
             () => {
                 new Vector({}, 0)
             },
-            /^x must be a safe integer/
+            /^Invalid value. Must be a safe integer. Provided/
         )
 
         assert.throws(
             () => {
                 new Vector(0, {})
             },
-            /^y must be a safe integer/
+            /^Invalid value. Must be a safe integer. Provided/
         )
     });
 
@@ -71,14 +71,14 @@ QUnit.module('Vector', function() {
             () => {
                 new Vector(1.5, 0)
             },
-            /^x must be a safe integer/
+            /^Invalid value. Must be a safe integer. Provided/
         )
 
         assert.throws(
             () => {
                 new Vector(0, -1.9)
             },
-            /^y must be a safe integer/
+            /^Invalid value. Must be a safe integer. Provided/
         )
     });
 })

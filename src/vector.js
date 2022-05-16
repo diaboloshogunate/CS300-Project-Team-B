@@ -1,6 +1,6 @@
 class Vector {
-    x
-    y
+    #_x
+    #_y
 
     /**
      * create a vector
@@ -17,7 +17,7 @@ class Vector {
      * @returns {number}
      */
     get x () {
-        return this.x
+        return this.#_x
     }
 
     /**
@@ -27,7 +27,7 @@ class Vector {
     set x(value) {
         validateSafeInt(value)
 
-        this.x = value
+        this.#_x = value
     }
 
     /**
@@ -35,7 +35,7 @@ class Vector {
      * @returns {number}
      */
     get y() {
-        return this.y
+        return this.#_y
     }
 
     /**
@@ -45,6 +45,6 @@ class Vector {
     set y(value) {
         validateSafeInt(value)
 
-        this.y = value
+        this.#_y = value
     }
 }
