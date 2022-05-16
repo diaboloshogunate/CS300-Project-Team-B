@@ -33,6 +33,7 @@ function updateConfig()
     else if(startEnergy < 1 || startSupplies < 1 || startCredits < 0)
         valid = false;
 
+        /*
     alert(
         "North Limit: " + north
     + "\nEast Limit: " + east
@@ -43,7 +44,7 @@ function updateConfig()
     + "\nImmortal: " + playerImmortal
     + "\nFixed Wormhole: " + fixedWormhole
     + "\nFixed Wormhole Location: " + "(" + parsedWormholeX + "," + parsedStartY + ")"
-    );
+    );*/
 
     //Pass values into config and go to game if valid
     if(!valid)
