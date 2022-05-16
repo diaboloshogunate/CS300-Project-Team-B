@@ -2,12 +2,12 @@
  * class for a player
  */
 class Player {
-    position
-    energy
-    energyCapacity
-    supplies
-    credits
-    map
+    #_position
+    #_energy
+    #_energyCapacity
+    #_supplies
+    #_credits
+    #_map
 
     /**
      * create a player
@@ -19,13 +19,12 @@ class Player {
      * @param {Cell[][]} map map
      */
     constructor(position, energy, energyCapacity, supplies, credits, map) {
-        this.position       = position || new Vector(0,0)
-        this.energy         = energy || 1000
         this.energyCapacity = energyCapacity || 1000
+        this.energy         = energy || 1000
         this.supplies       = supplies || 100
         this.credits        = credits || 1000
-        this.map             = map
-        this.position
+        this.map            = map
+        this.position       = position || new Vector(0,0)
     }
 
     /**
@@ -33,7 +32,7 @@ class Player {
      * @returns {Vector}
      */
     get position() {
-        return this.position
+        return this.#_position
     }
 
     /**
@@ -42,11 +41,11 @@ class Player {
      * @param value
      */
     set position(value) {
-        validateType(value, Vector.name)
-        value.x = clamp(0,1,this.map.size - 1)
-        value.x = clamp(0,1,this.map.size - 1)
+        validateType(value, Vector)
+        value.x = clamp(value.x,1,this.map.size - 1)
+        value.y = clamp(value.y,1,this.map.size - 1)
 
-        this.position = value
+        this.#_position = value
         this.map.revealPosition(value)
         this.map.triggerPlayerCollision(this)
     }
@@ -56,7 +55,7 @@ class Player {
      * @returns {number}
      */
     get energy() {
-        return this.energy
+        return this.#_energy
     }
 
     /**
@@ -66,7 +65,7 @@ class Player {
     set energy(value) {
         validateSafeInt(value)
 
-        this.energy = clamp(value, 0, this.energyCapacity)
+        this.#_energy = clamp(value, 0, this.energyCapacity)
     }
 
     /**
@@ -74,7 +73,7 @@ class Player {
      * @returns {number}
      */
     get energyCapacity() {
-        return this.energyCapacity
+        return this.#_energyCapacity
     }
 
     /**
@@ -84,7 +83,7 @@ class Player {
     set energyCapacity(value) {
         validateSafeInt(value)
 
-        this.energyCapacity = value
+        this.#_energyCapacity = value
     }
 
     /**
@@ -92,7 +91,7 @@ class Player {
      * @returns {number} supplies
      */
     get supplies() {
-        return this.supplies
+        return this.#_supplies
     }
 
     /**
@@ -103,9 +102,9 @@ class Player {
         validateSafeInt(value)
         value = clamp(value, 0, 100)
 
-        this.supplies = value
+        this.#_supplies = value
 
-        if(this.supplies === 0)
+        if(this.#_supplies === 0)
             throw `Ran out of supplies. You lose the game`
     }
 
@@ -114,7 +113,7 @@ class Player {
      * @returns {number}
      */
     get credits() {
-        return this.credits
+        return this.#_credits
     }
 
     /**
@@ -124,7 +123,7 @@ class Player {
     set credits(value) {
         validateSafeInt(value)
 
-        this.credits = value
+        this.#_credits = value
     }
 
     /**
@@ -132,7 +131,7 @@ class Player {
      * @returns {Map}
      */
     get map() {
-        return this.map
+        return this.#_map
     }
 
     /**
@@ -140,9 +139,9 @@ class Player {
      * @param {Map} value
      */
     set map(value) {
-        validateType(value, Map.name)
+        validateType(value, Map)
 
-        this.map = value
+        this.#_map = value
     }
 
     /**
@@ -154,7 +153,6 @@ class Player {
     move(direction, magnitude) {
         validateFloat(direction)
         validateSafeInt(magnitude)
-
 
         // move one unit at a time so collisions can trigger
         // base each step on the starting unit and increment magnitude by 1

@@ -1,4 +1,13 @@
 QUnit.module('player.js', function() {
+    QUnit.test('constructor values', assert => {
+        let player = new Player(new Vector(5,5), 1000, 1000, 100, 1000, new Map(10))
+
+        assert.equal(player.position.x, 5, '5 x position')
+        assert.equal(player.position.y, 5, '5 y position')
+        assert.equal(player.supplies, 100, '100 supplies')
+        assert.equal(player.energy, 1000, '1000 energy capacity')
+    });
+
     QUnit.test('move 0', assert => {
         let player = new Player(new Vector(5,5), 1000, 1000, 100, 1000, new Map(10))
         player.move(0, 2)
