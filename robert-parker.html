@@ -86,6 +86,7 @@
 <script src="src/vector.js"></script>
 <script src="src/cell.js"></script>
 <script src="src/planet.js"></script>
+<script src="src/pentium.js"></script>
 <script src="src/enaic.js"></script>
 <script src="src/celeron.js"></script>
 <script src="src/xeon.js"></script>
@@ -102,7 +103,9 @@
         const celeron = new Celeron()
         const xeon = new Xeon()
         const ryzen = new Ryzen()
+        const pentium = new Pentium()
         map.set(new Vector(0,0), enaic)
+        map.set(new Vector(1,0), pentium)
         map.replaceRandomEmptyCell(celeron)
         map.replaceRandomEmptyCell(xeon)
         map.replaceRandomEmptyCell(ryzen)

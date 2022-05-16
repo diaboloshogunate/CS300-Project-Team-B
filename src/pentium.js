@@ -26,4 +26,14 @@ class Pentium extends Planet {
     takeRecipe() {
         this.#recipe = false
     }
+
+    /**
+     * hand player collision
+     * @param {Player} player
+     */
+    onPlayerCollision(player) {
+        if(!player instanceof Player)
+            throw `onPlayerCollision requires the player is passed in as an argument`
+        console.log('Collided with pentium')
+    }
 }
