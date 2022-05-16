@@ -143,7 +143,7 @@ class Map {
             string += `<div class="map-row">`
             for(let x = 0; x < this.cells.length; x++) {
                 const cell = this.cells[x][y]
-                string += `<div class="map-cell" style="background-color: ${cell.isHidden ? `666` : cell.backgroundColor};">&nbsp;</div>`
+                string += `<div class="map-cell" style="background-color: ${cell.isHidden ? `#666` : cell.backgroundColor};">&nbsp;</div>`
             }
             string += `</div>`
         }

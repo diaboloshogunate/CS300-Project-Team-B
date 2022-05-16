@@ -1,4 +1,6 @@
 class Pentium extends Planet {
+    backgroundColor = `#5ac5f3`
+    isHidden = false
     #recipe
     #number
 
@@ -7,10 +9,6 @@ class Pentium extends Planet {
         super(position);
         this.#number = number || 0
         this.#recipe = hasRecipe || false
-    }
-
-    get backgroundColor() {
-        return `#5ac5f3`
     }
 
     get name () {

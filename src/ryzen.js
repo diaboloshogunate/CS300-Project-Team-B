@@ -3,10 +3,7 @@ class Ryzen extends Planet {
     // if casinian is there option to play game of change to win/lose 100 credits
 
     isHidden = false
-
-    get backgroundColor() {
-        return `#fe5b11`
-    }
+    backgroundColor = `#fe5b11`
 
     deliverCargo(wallet, ship) {
         // get 1k credits and mark the player as a theif
