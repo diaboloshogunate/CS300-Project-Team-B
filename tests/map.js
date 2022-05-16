@@ -34,7 +34,7 @@ QUnit.module('map.js', function() {
     });
     QUnit.test('map get ransom cell position', assert => {
         const map = new Map(4)
-        console.log(map.getRandomCellPosition())
+
         assert.true(map.getRandomCellPosition() instanceof Vector)
     });
 })
