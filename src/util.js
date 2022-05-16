@@ -104,6 +104,14 @@ const validateType = (value, type) => {
 }
 
 /**
+ * validate if supplies is above 0
+ * @param {supplies} value 
+ */
+const validateSupplies = (value) => {
+    if(value <= 0)
+        throw 'Supplies reaches 0. Game over'
+}
+/**
  * validate arrays size
  * @param {array<*>} value
  * @param {number} size
