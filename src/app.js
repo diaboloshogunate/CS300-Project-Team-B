@@ -1,5 +1,11 @@
-const startingPosition = new Vector(0,0)
-const startingEnergy   = 1000
-const startingSupplies = 100
-const startingMap      = setMap();
-const player           = new Player(startingPosition, startingEnergy, startingSupplies,startingMap)
+let northLimit = 128;
+let eastLimit = 128;
+let startingPosition = new Vector(0,0);
+let startingEnergy   = 1000;
+let startingSupplies = 90;
+let startingCredits = 1000;
+let immortal = false;
+let fixedWormholeBehavior = false;
+let fixedWormholeLocation = new Vector(0,0);
+let startingMap = setMap();
+let player = new Player(startingPosition, startingEnergy, startingSupplies);

@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en">
 
+<!--Asks if user wants to change initial settings when first loading-->
+
 <head>
     <meta http-equiv="content-type" content="text/html; charset=windows-1252">
     <!-- Since all of the page content is dependent on js code, keep it in the head so it has to load first-->
@@ -17,39 +19,59 @@
     <script type="application/javascript" src="src/xeon.js"></script>
     <script type="application/javascript" src="src/setMap.js"></script>
     <script type="application/javascript" src="src/app.js"></script>
+    <script type="application/javascript" src="src/devSettings.js"></script>
     <script type="application/javascript" src="src/adminCAconfig.js" defer></script>
     <title>Galactic Schooner OldSpice</title>
 </head>
+
 <style>
-    #moveForm {
+    .moveForm {
         padding-left: 25%;
     }
 </style>
 
 <body>
-    <h1>G.S.S. OldSpice Bridge Display</h1>
-    <form id="moveForm">
-        <!--Add an onSubmit here when the movement script is created-->
-        Distance <input id="distance" type="text" value="0" size="6" maxlength="6"><br><br>
-        Direction
-        <select name=direction>
-            <option> 0
-            <option> 90
-            <option> 180
-            <option> 270
-        </select><br><br>
-        <input type="submit" value="Proceed">
-    </form>
-    <hr>
-    <h1>CURRENT STATUS</h1>
-    <form>
-        Current Location: <input id="location" type="text" value="(000,000)" size="8" maxlength="8"><br><br>
-        Energy: <input id="energy" type="text" value="100" size="6" maxlength="6"><br><br>
-        Supplies: <input id="supplies" type="text" value="90%" size="6" maxlength="6"><br><br>
-        Credits: <input id="credits" type="text" value="100" size="6" maxlength="6"><br><br>
-        Message: <input id="message" type="text" value="All Systems Ready" size="25" maxlength="25">
-    </form>
-    <button class="artifact_admin" id="btn_admin" onclick="admin_init()">Admin Setup</button>
+    <div id="devSettings" style="display:block">
+        <form onsubmit="updateConfig();return false">
+            <h1>Dev Settings:</h1>
+            Northern Limit: <input id="northLimit" type="text" value="128" size="6" maxlength="6"><br><br>
+            Eastern Limit: <input id="eastLimit" type="text" value="128" size="6" maxlength="6"><br><br>
+            Starting Location: <input id="startLocation" type="text" value="(000,000)" size="8" maxlength="10"><br><br>
+            Starting Energy: <input id="startEnergy" type="text" value="1000" size="6" maxlength="6"><br><br>
+            Starting Supplies: <input id="startSupplies" type="text" value="90%" size="6" maxlength="6"><br><br>
+            Starting Credits: <input id="startCredits" type="text" value="1000" size="6" maxlength="6"><br><br>
+            Immortal: <input id="immortal" type="checkbox"><br><br>
+            Fixed Wormhole Behavior: <input id="fixedWormholeBehavior" type="checkbox"><br><br>
+            Fixed Wormhole Location: <input id="fixedWormholeLocation" type="text" value="(000,000)" size="8" maxlength="8"><br><br>
+            <input type="submit" value="Continue">
+        </form>
+    </div>
+    <div id = "game" style="display:none">
+        <h1>G.S.S. OldSpice Bridge Display</h1>
+        <form class="moveForm">
+            <!--Add an onSubmit here when the movement script is created-->
+            Distance <input id="distance" type="text" value="0" size="6" maxlength="6"><br><br>
+            Direction
+            <select name=direction>
+                <option> 0
+                <option> 90
+                <option> 180
+                <option> 270
+            </select><br><br>
+            <input type="submit" value="Proceed">
+        </form>
+        <hr>
+        <h1>CURRENT STATUS</h1>
+        <form>
+            Current Location: <input id="location" type="text" value="(000,000)" size="8" maxlength="8"><br><br>
+            Energy: <input id="energy" type="text" value="100" size="6" maxlength="6"><br><br>
+            Supplies: <input id="supplies" type="text" value="90%" size="6" maxlength="6"><br><br>
+            Credits: <input id="credits" type="text" value="100" size="6" maxlength="6"><br><br>
+            Message: <input id="message" type="text" value="All Systems Ready" size="25" maxlength="25">
+        </form>
+        <button class="artifact_admin" id="btn_admin" onclick=admin_init()>Admin Setup</button>
+    </div>
+    
 </body>
 
 </html>
