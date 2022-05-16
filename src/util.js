@@ -98,6 +98,10 @@ const validateType = (value, type) => {
         throw `Invalid type. value must be an instance of ${type}. Provided ${value.name}`
 }
 
+const validateSupplies = (value) => {
+    if(value <= 0)
+        throw 'Supplies reaches 0. Game over'
+}
 /**
  * validate arrays size
  * @param {array<*>} value

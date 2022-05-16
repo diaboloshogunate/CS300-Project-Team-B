@@ -175,6 +175,7 @@ class Player {
         }
 
         this.supplies = this.supplies - 2
+        validateSupplies(this.supplies)
     }
 
     /**
