@@ -6,10 +6,10 @@ QUnit.module('wormhole.js', function() {
         assert.equal(wormhole.isHidden, true)
     });
     QUnit.test('wormhole onPlayerCollision', assert => {
-        const map = new Map(2)
+        const map = new Map(5)
         const wormhole = new Wormhole()
         const player = new Player(new Vector(1,1), 100, 100, 100, 100, map)
         wormhole.onPlayerCollision(player)
-        assert.equal(player.position.x === 1 && player.position.y === 1, false)
+        assert.false(player.position.x === 1 && player.position.y === 1)
     });
 })
