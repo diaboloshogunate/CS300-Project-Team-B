@@ -42,8 +42,8 @@ class Player {
      */
     set position(value) {
         validateType(value, Vector)
-        value.x = clamp(value.x,1,this.map.size - 1)
-        value.y = clamp(value.y,1,this.map.size - 1)
+        value.x = clamp(value.x,0,this.map.size - 1)
+        value.y = clamp(value.y,0,this.map.size - 1)
 
         this.#_position = value
         this.map.revealPosition(value)
