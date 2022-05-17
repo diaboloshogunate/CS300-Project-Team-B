@@ -7,4 +7,10 @@ class Celeron extends Planet {
     receiveCargo(wallet, ship) {
         // get contract and load cargo for 100 credits
     }
+    onPlayerCollision(player) {
+        if(!player instanceof Player)
+            throw `onPlayerCollision requires the player is passed in as an argument`
+        console.log('Collided with pentium')
+        player.messages = "Collison with Celeron"
+    }
 }
