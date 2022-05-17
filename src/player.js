@@ -8,6 +8,7 @@ class Player {
     #_supplies
     #_credits
     #_map
+    #_messages
 
     /**
      * create a player
@@ -25,6 +26,7 @@ class Player {
         this.credits        = credits || 1000
         this.map            = map
         this.position       = position || new Vector(0,0)
+        this.#_messages     = []
     }
 
     /**
@@ -142,6 +144,23 @@ class Player {
         validateType(value, Map)
 
         this.#_map = value
+    }
+
+    /**
+     * get the current message
+     * @returns {'string'}
+     */
+    get messages() {
+        return this.#_messages
+    }
+
+    /**
+     * set a message
+     * @param {'string'} value
+     */
+    set messages(value) {
+
+        this.#_messages.push(value);
     }
 
     /**
