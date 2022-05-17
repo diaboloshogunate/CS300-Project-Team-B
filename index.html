@@ -11,6 +11,7 @@
     <script type="application/javascript" src="src/player.js"></script>
     <script type="application/javascript" src="src/util.js"></script>
     <script type="application/javascript" src="src/cell.js"></script>
+    <script type="application/javascript" src="src/wormhole.js"></script>
     <script type="application/javascript" src="src/planet.js"></script>
     <script type="application/javascript" src="src/pentium.js"></script>
     <script type="application/javascript" src="src/meteorstorm.js"></script>
@@ -42,11 +43,12 @@
             Starting Credits: <input id="startCredits" type="text" value="1000" size="6" maxlength="6"><br><br>
             Immortal: <input id="immortal" type="checkbox"><br><br>
             Fixed Wormhole Behavior: <input id="fixedWormholeBehavior" type="checkbox"><br><br>
-            Fixed Wormhole Location: <input id="fixedWormholeLocation" type="text" value="(000,000)" size="8" maxlength="8"><br><br>
+            Fixed Wormhole Location: <input id="fixedWormholeLocation" type="text" value="(000,000)" size="8"
+                maxlength="8"><br><br>
             <input type="submit" value="Continue">
         </form>
     </div>
-    <div id = "game" style="display:none">
+    <div id="game" style="display:none">
         <h1>G.S.S. OldSpice Bridge Display</h1>
         <form class="moveForm">
             <!--Add an onSubmit here when the movement script is created-->
@@ -71,7 +73,7 @@
         </form>
         <button class="artifact_admin" id="btn_admin" onclick=admin_init()>Admin Setup</button>
     </div>
-    
+
 </body>
 
 </html>

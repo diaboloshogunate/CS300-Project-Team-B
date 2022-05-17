@@ -23,8 +23,9 @@ function randomPlacement(){
         artifacts["planet" + i] = setCoordinates();
     }
     artifacts["astroidField"] = setCoordinates()
-    artifacts["SpaceStation1"] = setCoordinates();
-    artifacts["SpaceStation2"] = setCoordinates();
+    artifacts["celeron"] = setCoordinates();
+    artifacts["ryzen"] = setCoordinates();
+    artifacts["xeon"] = setCoordinates();
     return artifacts;
 
 }
@@ -61,7 +62,8 @@ function setStoredMap(){
     artifacts = oldSpiceMap;
     let map = new Map;
 
-    let recipeLocation = parseInt(artifacts['recipeLocation']);
+    let recipeLocation = artifacts['recipeLocation'];
+    recipeLocation = recipeLocation.substring(7);
     let planet;
 
     for(let i = 1; i <= 7; i++){
