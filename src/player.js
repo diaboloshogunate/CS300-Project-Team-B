@@ -147,16 +147,16 @@ class Player {
     }
 
     /**
-     * get the current message
-     * @returns {'string'}
+     * get most recent message
+     * @returns {string}
      */
     get messages() {
-        return this.#_messages
+        return this.#_messages[this.#_messages.length-1];
     }
 
     /**
      * set a message
-     * @param {'string'} value
+     * @param {string} value
      */
     set messages(value) {
 
