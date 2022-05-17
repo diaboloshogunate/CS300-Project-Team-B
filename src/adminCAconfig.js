@@ -168,7 +168,7 @@ function admin_init(){
     submit.setAttribute('type', "submit");
     submit.setAttribute('value', "Submit");
     reset.setAttribute('type', "submit");
-    reset.setAttribute('value', "Close");
+    reset.setAttribute('value', "Cancel");
     psswrd.setAttribute('type', 'password');
     psswrd.setAttribute('id', 'admin_pw');
     
