@@ -35,6 +35,6 @@ class Pentium extends Planet {
         if(!player instanceof Player)
             throw `onPlayerCollision requires the player is passed in as an argument`
         console.log('Collided with pentium')
-        player.messages = "Collison with Pentium " + this.#number
+        player.messages = "Collision with Pentium " + this.#number
     }
 }

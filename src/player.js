@@ -26,7 +26,7 @@ class Player {
         this.credits        = credits || 1000
         this.map            = map
         this.position       = position || new Vector(0,0)
-        this.#_messages     = []
+        this.#_messages     = ['All Systems Ready']
     }
 
     /**

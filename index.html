@@ -50,17 +50,17 @@
     </div>
     <div id="game" style="display:none">
         <h1>G.S.S. OldSpice Bridge Display</h1>
-        <form class="moveForm">
+        <form class="moveForm" onsubmit="return false;">
             <!--Add an onSubmit here when the movement script is created-->
             Distance <input id="distance" type="text" value="0" size="6" maxlength="6"><br><br>
             Direction
-            <select name=direction>
+            <select name=direction id="direction">
                 <option> 0
                 <option> 90
                 <option> 180
                 <option> 270
             </select><br><br>
-            <input type="submit" value="Proceed">
+            <input type="submit" value="Proceed" onclick="proceed()">
         </form>
         <hr>
         <h1>CURRENT STATUS</h1>
