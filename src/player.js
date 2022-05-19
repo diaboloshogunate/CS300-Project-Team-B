@@ -177,7 +177,7 @@ class Player {
         // base each step on the starting unit and increment magnitude by 1
         // this ensures that you hit up to n cells where n is the magnitude
 
-        //if (magnitude > 0 && magnitude > 0) {
+        if (magnitude > 0 && direction > 0) {
             const startingPosition = this.position
             for (let distanceTraveled = 1; distanceTraveled <= magnitude; distanceTraveled++) {
                 let movement = polarToCoordinate(direction, distanceTraveled)
@@ -195,7 +195,7 @@ class Player {
 
             this.supplies = this.supplies - 2
             validateSupplies(this.supplies)
-        //}
+        }
     }
 
     /**
