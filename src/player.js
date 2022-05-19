@@ -21,12 +21,12 @@ class Player {
      */
     constructor(position, energy, energyCapacity, supplies, credits, map) {
         this.energyCapacity = energyCapacity || 1000
-        this.energy         = energy || 1000
-        this.supplies       = supplies || 100
-        this.credits        = credits || 1000
-        this.map            = map
-        this.position       = position || new Vector(0,0)
-        this.#_messages     = ['All Systems Ready']
+        this.energy = energy || 1000
+        this.supplies = supplies || 100
+        this.credits = credits || 1000
+        this.map = map
+        this.position = position || new Vector(0, 0)
+        this.#_messages = ['All Systems Ready']
     }
 
     /**
@@ -44,8 +44,8 @@ class Player {
      */
     set position(value) {
         validateType(value, Vector)
-        value.x = clamp(value.x,0,this.map.size - 1)
-        value.y = clamp(value.y,0,this.map.size - 1)
+        value.x = clamp(value.x, 0, this.map.size - 1)
+        value.y = clamp(value.y, 0, this.map.size - 1)
 
         this.#_position = value
         this.map.revealPosition(value)
@@ -106,7 +106,7 @@ class Player {
 
         this.#_supplies = value
 
-        if(this.#_supplies === 0)
+        if (this.#_supplies === 0)
             throw `Ran out of supplies. You lose the game`
     }
 
@@ -151,7 +151,7 @@ class Player {
      * @returns {string}
      */
     get messages() {
-        return this.#_messages[this.#_messages.length-1];
+        return this.#_messages[this.#_messages.length - 1];
     }
 
     /**
@@ -176,23 +176,26 @@ class Player {
         // move one unit at a time so collisions can trigger
         // base each step on the starting unit and increment magnitude by 1
         // this ensures that you hit up to n cells where n is the magnitude
-        const startingPosition = this.position
-        for(let distanceTraveled = 1; distanceTraveled <= magnitude; distanceTraveled++) {
-            let movement = polarToCoordinate(direction, distanceTraveled)
-            let nextPosition = new Vector(startingPosition.x + movement.x, startingPosition.y + movement.y)
 
-            if(!this.map.is(nextPosition)) {
-                const wormhole = new Wormhole()
-                wormhole.onPlayerCollision(this)
-                break
+        //if (magnitude > 0 && magnitude > 0) {
+            const startingPosition = this.position
+            for (let distanceTraveled = 1; distanceTraveled <= magnitude; distanceTraveled++) {
+                let movement = polarToCoordinate(direction, distanceTraveled)
+                let nextPosition = new Vector(startingPosition.x + movement.x, startingPosition.y + movement.y)
+
+                if (!this.map.is(nextPosition)) {
+                    const wormhole = new Wormhole()
+                    wormhole.onPlayerCollision(this)
+                    break
+                }
+
+                this.position = nextPosition
+                this.energy -= 10
             }
 
-            this.position = nextPosition
-            this.energy -= 10
-        }
-
-        this.supplies = this.supplies - 2
-        validateSupplies(this.supplies)
+            this.supplies = this.supplies - 2
+            validateSupplies(this.supplies)
+        //}
     }
 
     /**
@@ -202,12 +205,12 @@ class Player {
      */
     scan(position, radius) {
         const startX = clamp(position.x - radius, 0, this.map.size - 1)
-        const endX   = clamp(position.x + radius, 0, this.map.size - 1)
+        const endX = clamp(position.x + radius, 0, this.map.size - 1)
         const startY = clamp(position.y - radius, 0, this.map.size - 1)
-        const endY   = clamp(position.y + radius, 0, this.map.size - 1)
+        const endY = clamp(position.y + radius, 0, this.map.size - 1)
 
-        for(let i = startX; i <= endX; i++) {
-            for(let j = startY; j <= endY; j++) {
+        for (let i = startX; i <= endX; i++) {
+            for (let j = startY; j <= endY; j++) {
                 this.map.revealPosition(new Vector(i, j))
             }
         }
@@ -220,7 +223,7 @@ class Player {
      * @returns {string} table with player stats
      */
     toString() {
-        return`<table class="table table-sm table-hover table-borderless">
+        return `<table class="table table-sm table-hover table-borderless">
             <tbody>
                 <tr>
                     <th>Credits</th>
