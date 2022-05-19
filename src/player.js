@@ -211,6 +211,8 @@ class Player {
                 this.map.revealPosition(new Vector(i, j))
             }
         }
+        this.supplies = this.supplies - 2
+        validateSupplies(this.supplies)
     }
 
     /**
