@@ -1,5 +1,10 @@
 let body = document.body;
-const MaxCoord = 128;
+function findMax() {
+  if (eastLimit < northLimit) return eastLimit;
+  else return northLimit;
+}
+
+const MaxCoord = findMax();
 let btnPush = false;
 
 document.getElementById("btn_admin").style.marginTop = "10px";
@@ -197,24 +202,33 @@ function setArtifacts() {
     let artifacts = {};
     let x;
     let y;
+    let badInput = false;
+    let validInput = (x) => {
+      if (x > MaxCoord || y > MaxCoord) badInput = true;
+      if (x < 0 || y < 0) badInput = true;
+    };
     try {
       for (let i = 1; i <= 7; i++) {
         x = document.querySelector("#p" + i + "-x").value;
         y = document.querySelector("#p" + i + "-y").value;
+        validInput(x, y);
         artifacts["planet" + i] = setCoordinates(x, y);
       }
-
       x = document.querySelector("#af1-x").value;
       y = document.querySelector("#af1-y").value;
+      validInput(x, y);
       artifacts["astroidField"] = setCoordinates(x, y);
       x = document.querySelector("#ss1-x").value;
       y = document.querySelector("#ss1-y").value;
+      validInput(x, y);
       artifacts["celeron"] = setCoordinates(x, y);
       x = document.querySelector("#ss2-x").value;
       y = document.querySelector("#ss2-y").value;
+      validInput(x, y);
       artifacts["ryzen"] = setCoordinates(x, y);
       x = document.querySelector("#ss3-x").value;
       y = document.querySelector("#ss3-y").value;
+      validInput(x, y);
       artifacts["xeon"] = setCoordinates(x, y);
 
       let recipe_select = document.getElementById("inputGroupSelect01");
@@ -234,8 +248,13 @@ function setArtifacts() {
 
     console.log(test);
     btnPush = false;
-    document.getElementById("admin_form").remove();
-    alert("Reload page to finish artifact placement update");
+    if (badInput) {
+      alert("Error. Inputs must be between 0 and " + MaxCoord);
+      return false;
+    } else {
+      document.getElementById("admin_form").remove();
+      alert("Reload page to finish artifact placement update");
+    }
   }
 }
 function setCoordinates(cordx, cordy) {
