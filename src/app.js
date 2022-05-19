@@ -35,3 +35,11 @@ function proceed(){
     console.log(player)
 }
 
+function scanner(){
+
+    let position = player.position
+
+    player.scan(position, 2);
+
+    supplies.value = player.supplies
+}
