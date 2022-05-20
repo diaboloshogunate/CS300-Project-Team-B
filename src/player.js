@@ -106,7 +106,8 @@ class Player {
 
     this.#_supplies = value;
 
-    if (this.#_supplies === 0) throw `Ran out of supplies. You lose the game`;
+    if (this.#_supplies === 0) 
+        this.#_messages = [`Ran out of supplies. You lose the game`];
   }
 
   /**
@@ -199,7 +200,6 @@ class Player {
       }
 
       this.supplies = this.supplies - 2;
-      validateSupplies(this.supplies);
     }
   }
 
@@ -220,7 +220,6 @@ class Player {
       }
     }
     this.supplies = this.supplies - 2;
-    validateSupplies(this.supplies);
   }
 
   /**
