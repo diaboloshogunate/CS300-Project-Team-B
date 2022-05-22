@@ -33,6 +33,7 @@ function proceed(){
     credits.value = player.credits
     message.value = player.messages
     console.log(player)
+    render()
 }
 
 function scanner(){
@@ -42,4 +43,11 @@ function scanner(){
     player.scan(position, 2);
 
     supplies.value = player.supplies
+    render()
+}
+
+
+function render() {
+    document.getElementById('game-player-stats').innerHTML = player.toString()
+    document.getElementById('game-map').innerHTML = player.map.toString() + `<div id="game-map-player" style="left: ${player.position.x * 8 + 2}px; bottom: ${player.position.y * 8 + 2}px;"></div>`
 }

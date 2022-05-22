@@ -70,5 +70,5 @@ function updateConfig()
         document.getElementById("game").style.display = "block";
         document.getElementById("devSettings").style.display = "none";
     }
-
+    render()
 }
