@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: cell.js</title>
+    <title>JSDoc: Source: pentium.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: cell.js</h1>
+    <h1 class="page-title">Source: pentium.js</h1>
 
     
 
@@ -26,30 +26,33 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>class Cell {
-    isHidden = true
-    backgroundColor = `#000`
-    eventManager = new EventManager()
+            <pre class="prettyprint source linenums"><code>class Pentium extends Planet {
+    backgroundColor = `#5ac5f3`
+    isHidden = false
+    #recipe
+    #number
 
-    /**
-     * check if the cell is hidden from the map
-     * @returns {boolean}
-     */
-    get isHidden () {
-        return this.isHidden
+    // TODO random position
+    constructor(position, number, hasRecipe) {
+        super(position);
+        this.#number = number || 0
+        this.#recipe = hasRecipe || false
     }
 
-    /**
-     * set if the cell should be hidden from the map
-     * @param value
-     */
-    set isHidden (value) {
-        this.isHidden = value
+    get name () {
+        return `Pentium-${this.#number}`
     }
 
-    // todo
-    playerChoices(player) {
-        // return array of string actions and the callable they will run if the player choose it?
+    get number () {
+        return this.#number
+    }
+
+    get hasRecipe () {
+        return this.#recipe
+    }
+
+    takeRecipe() {
+        this.#recipe = false
     }
 
     /**
@@ -59,9 +62,10 @@
     onPlayerCollision(player) {
         if(!player instanceof Player)
             throw `onPlayerCollision requires the player is passed in as an argument`
+        console.log('Collided with pentium')
+        this.eventManager.trigger(Event.playerMessage,  `Collision with Pentium ${this.#number}`)
     }
-}
-</code></pre>
+}</code></pre>
         </article>
     </section>
 

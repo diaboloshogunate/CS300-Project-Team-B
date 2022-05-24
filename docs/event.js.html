@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: cell.js</title>
+    <title>JSDoc: Source: event.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: cell.js</h1>
+    <h1 class="page-title">Source: event.js</h1>
 
     
 
@@ -26,42 +26,27 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>class Cell {
-    isHidden = true
-    backgroundColor = `#000`
-    eventManager = new EventManager()
+            <pre class="prettyprint source linenums"><code>/**
+ * Events that can be triggered or subscribed too
+ */
+class Event
+{
+    /**
+     * player messages. Passes in a string arg for the message to send
+     * @type {Event}
+     */
+    static playerMessage = new Event("player.message")
 
     /**
-     * check if the cell is hidden from the map
-     * @returns {boolean}
+     * player died. Passes no args
+     * @type {Event}
      */
-    get isHidden () {
-        return this.isHidden
-    }
+    static playerDeath = new Event("player.death")
 
-    /**
-     * set if the cell should be hidden from the map
-     * @param value
-     */
-    set isHidden (value) {
-        this.isHidden = value
+    constructor(name) {
+        this.name = name
     }
-
-    // todo
-    playerChoices(player) {
-        // return array of string actions and the callable they will run if the player choose it?
-    }
-
-    /**
-     * hand player collision
-     * @param {Player} player
-     */
-    onPlayerCollision(player) {
-        if(!player instanceof Player)
-            throw `onPlayerCollision requires the player is passed in as an argument`
-    }
-}
-</code></pre>
+}</code></pre>
         </article>
     </section>
 

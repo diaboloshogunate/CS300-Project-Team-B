@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: cell.js</title>
+    <title>JSDoc: Source: eventManager.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: cell.js</h1>
+    <h1 class="page-title">Source: eventManager.js</h1>
 
     
 
@@ -26,42 +26,62 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>class Cell {
-    isHidden = true
-    backgroundColor = `#000`
-    eventManager = new EventManager()
+            <pre class="prettyprint source linenums"><code>/**
+ * Event Manager to subscribe and trigger events
+ *
+ * It is a singleton so all instances made are the same instance
+ */
+class EventManager {
+    constructor() {
+        if (EventManager.instance) return EventManager.instance;
 
-    /**
-     * check if the cell is hidden from the map
-     * @returns {boolean}
-     */
-    get isHidden () {
-        return this.isHidden
+        this.events = [];
+        EventManager.instance = this;
+
+        return EventManager.instance;
     }
 
     /**
-     * set if the cell should be hidden from the map
-     * @param value
+     * subscribe to an event and tun the function when it is triggered
+     * @param {Event} event event to subscribe to
+     * @param {function} eventHandler handle the event. Some events may pass in an argument such as the message for the playerMessage event
      */
-    set isHidden (value) {
-        this.isHidden = value
-    }
-
-    // todo
-    playerChoices(player) {
-        // return array of string actions and the callable they will run if the player choose it?
+    subscribe(event, eventHandler) {
+        validateType(event, Event)
+        if (this.events[event.name]) {
+            this.events[event.name].push(eventHandler);
+        } else {
+            this.events[event.name] = [eventHandler];
+        }
     }
 
     /**
-     * hand player collision
-     * @param {Player} player
+     * unsubscribe to an event
+     * @param {Event} event event to unsubscribe from
+     * @param eventHandler
      */
-    onPlayerCollision(player) {
-        if(!player instanceof Player)
-            throw `onPlayerCollision requires the player is passed in as an argument`
+    unsubscribe(event, eventHandler) {
+        validateType(event, Event)
+        if(this.events[event.name]){
+            this.events[event.name] = this.events[event.name].filter((subscriber) => subscriber !== eventHandler);
+        }
     }
-}
-</code></pre>
+
+    /**
+     * trigger and event
+     * @param {Event} event
+     * @param {*} args args to pass to the subscribed functions
+     */
+    trigger(event, ...args) {
+        validateType(event, Event)
+        const eventHandlers = this.events[event.name];
+        if (Array.isArray(eventHandlers)) {
+            eventHandlers.forEach((eventHandler) => {
+                eventHandler.apply(null, args);
+            });
+        }
+    }
+}</code></pre>
         </article>
     </section>
 
