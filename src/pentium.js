@@ -1,6 +1,6 @@
 class Pentium extends Planet {
     backgroundColor = `#5ac5f3`
-    isHidden = false
+    isHidden = true
     #recipe
     #number
 
