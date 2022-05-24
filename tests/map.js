@@ -20,18 +20,6 @@ QUnit.module('map.js', function() {
         assert.equal(map.get(new Vector(0,0)) instanceof Cell, true)
         assert.equal(map.isRevealed(new Vector(0,0)), true)
     });
-    QUnit.test('map cell collision', assert => {
-        const cell = new Cell()
-        sinon.spy(cell, "onPlayerCollision")
-        const map = new Map(1, [[cell]])
-        const playerSpy = sinon.spy(function() {
-            return sinon.createStubInstance(Player);
-        })
-        playerSpy.position = new Vector(0,0)
-
-        map.triggerPlayerCollision(playerSpy)
-        assert.equal(cell.onPlayerCollision.calledOnce, true);
-    });
     QUnit.test('map get ransom cell position', assert => {
         const map = new Map(4)
 

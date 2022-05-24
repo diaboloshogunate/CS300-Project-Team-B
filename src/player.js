@@ -8,7 +8,7 @@ class Player {
   #_supplies;
   #_credits;
   #_map;
-  #_messages;
+  #_eventManager;
 
   /**
    * create a player
@@ -17,7 +17,7 @@ class Player {
    * @param {number} energyCapacity maximum amount of energy the player can have
    * @param {number} supplies starting amount of supplis
    * @param {number} credits starting amount of credits
-   * @param {Cell[][]} map map
+   * @param {Map} map map
    */
   constructor(position, energy, energyCapacity, supplies, credits, map) {
     this.energyCapacity = energyCapacity || 1000;
@@ -26,7 +26,8 @@ class Player {
     this.credits = credits || 1000;
     this.map = map;
     this.position = position || new Vector(0, 0);
-    this.#_messages = ["All Systems Ready"];
+    this.#_eventManager = new EventManager()
+    this.#_eventManager.trigger(Event.playerMessage, `All Systems Ready`)
   }
 
   /**
@@ -106,8 +107,10 @@ class Player {
 
     this.#_supplies = value;
 
-    if (this.#_supplies === 0) 
-        this.#_messages = [`Ran out of supplies. You lose the game`];
+    if (this.#_supplies === 0) {
+      this.#_eventManager.trigger(Event.playerMessage, `Ran out of supplies. You lose the game`)
+      this.#_eventManager.trigger(Event.playerDeath, player)
+    }
   }
 
   /**
@@ -144,22 +147,6 @@ class Player {
     validateType(value, Map);
 
     this.#_map = value;
-  }
-
-  /**
-   * get most recent message
-   * @returns {string}
-   */
-  get messages() {
-    return this.#_messages[this.#_messages.length - 1];
-  }
-
-  /**
-   * set a message
-   * @param {string} value
-   */
-  set messages(value) {
-    this.#_messages.push(value);
   }
 
   /**
@@ -241,12 +228,9 @@ class Player {
                     <th>Energy</th>
                     <td>
                         <div class="progress" style="height: 24px;">
-                            <div class="progress-bar bg-success" role="progressbar" style="width: ${normalize(
-                              this.energy,
-                              this.energyCapacity
-                            )}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">${
-      this.energy
-    }/${this.energyCapacity}</div>
+                            <div class="progress-bar bg-success" role="progressbar" style="width: ${clamp(normalize(this.energy, this.energyCapacity) * 100, 0, 100)}%;" aria-valuenow="${this.energy}" aria-valuemin="0" aria-valuemax="${this.energyCapacity}">
+                                ${this.energy}/${this.energyCapacity}
+                            </div>
                         </div>
                     </td>
                 </tr>
@@ -254,11 +238,9 @@ class Player {
                     <th>Supplies</th>
                     <td>
                         <div class="progress" style="height: 24px;">
-                            <div class="progress-bar bg-warning" role="progressbar" style="width: ${
-                              this.supplies
-                            }%;" aria-valuenow="${
-      this.supplies
-    }" aria-valuemin="0" aria-valuemax="100">${this.supplies}%</div>
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: ${this.supplies}%;" aria-valuenow="${this.supplies}" aria-valuemin="0" aria-valuemax="100">
+                                ${this.supplies}%
+                            </div>
                         </div>
                     </td>
                 </tr>

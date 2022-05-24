@@ -1,6 +1,7 @@
 class Cell {
     isHidden = true
     backgroundColor = `#000`
+    eventManager = new EventManager()
 
     /**
      * check if the cell is hidden from the map

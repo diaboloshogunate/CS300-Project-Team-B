@@ -8,10 +8,11 @@ class Ryzen extends Planet {
     deliverCargo(wallet, ship) {
         // get 1k credits and mark the player as a theif
     }
+
     onPlayerCollision(player) {
         if(!player instanceof Player)
             throw `onPlayerCollision requires the player is passed in as an argument`
         console.log('Collided with pentium')
-        player.messages = "Collision with Ryzen"
+        this.eventManager.trigger(Event.playerMessage, `Collision with Ryzen`)
     }
 }

@@ -34,12 +34,18 @@
         .table td {
             vertical-align: middle;
         }
+        .callout {
+            padding: 1.25rem;
+            background-color: rgba(13, 202, 240, 0.075);
+            border-left: 0.25rem solid rgba(13, 202, 240, 0.5);
+        }
     </style>
 </head>
 <body class="text-white bg-dark">
 <div class="container">
     <section id="game-example">
         <div id="game-map"></div>
+        <div class="callout mt-5" id="message" style="width: 1024px">Message</div>
         <div class="card text-dark my-5" style="width: 1024px">
             <div class="card-body">
                 <h3>Stats</h3>
@@ -84,6 +90,8 @@
 <!-- game code -->
 <script src="src/util.js"></script>
 <script src="src/vector.js"></script>
+<script src="src/event.js"></script>
+<script src="src/eventManager.js"></script>
 <script src="src/cell.js"></script>
 <script src="src/planet.js"></script>
 <script src="src/pentium.js"></script>
@@ -104,12 +112,13 @@
         const xeon = new Xeon()
         const ryzen = new Ryzen()
         const pentium = new Pentium()
+        const player = new Player(new Vector(0, 0), 100, 100, 100, 1000, map)
+
         map.set(new Vector(0,0), enaic)
         map.set(new Vector(1,0), pentium)
         map.replaceRandomEmptyCell(celeron)
         map.replaceRandomEmptyCell(xeon)
         map.replaceRandomEmptyCell(ryzen)
-        const player = new Player(new Vector(0, 0), 100, 100, 100, 1000, map)
 
         // functions
         const render = () => {
@@ -128,12 +137,19 @@
         }
 
         // html views/events
-        const gameMap     = document.getElementById('game-map')
-        const playerStats = document.getElementById('game-player-stats')
-        const moveForm    = document.getElementById('player-action-move')
+        const eventManager = new EventManager()
+        const gameMap      = document.getElementById('game-map')
+        const playerStats  = document.getElementById('game-player-stats')
+        const moveForm     = document.getElementById('player-action-move')
+
         moveForm.addEventListener('submit', (e) => {
             e.preventDefault()
             play()
+        })
+
+        eventManager.subscribe(Event.playerMessage, (message) => {
+            console.log(`send message`)
+            document.getElementById('message').innerText = message
         })
 
         // initialize
