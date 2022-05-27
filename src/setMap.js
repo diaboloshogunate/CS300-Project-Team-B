@@ -1,11 +1,12 @@
 let oldSpiceMap;
 function setMap(){
     retrieveMap = localStorage.getItem('oldSpiceMap');
-    oldSpiceMap = JSON.parse(retrieveMap);
-    
-    if(oldSpiceMap == null)
-        return setRandMap();
-    return setStoredMap();
+    if( attemptLoad){ //Had to add this so you can change the map with dev settings
+        oldSpiceMap = JSON.parse(retrieveMap);
+        if(oldSpiceMap != null)
+            return setStoredMap();
+    }
+    return setRandMap();
 }
 function randomPlacement(){
     let artifacts = {};
@@ -13,8 +14,8 @@ function randomPlacement(){
     let y;
     let setCoordinates= () =>{
         let position = new Object;
-        let x = Math.floor(Math.random() * 128);
-        let y = Math.floor(Math.random() * 128);
+        let x = Math.floor(Math.random() * mapSize);
+        let y = Math.floor(Math.random() * mapSize);
         position['x'] = x;
         position['y'] = y;
         return position;
@@ -31,7 +32,7 @@ function randomPlacement(){
 }
 function setRandMap(){
     console.log('set random')
-    let map = new Map;
+    let map = new Map(mapSize, filledArray2(mapSize, () => new Cell()));
 
     let artifacts = randomPlacement();
     let recipeLocation = Math.floor(Math.random() * 7);
@@ -60,7 +61,7 @@ function setRandMap(){
 function setStoredMap(){
 
     artifacts = oldSpiceMap;
-    let map = new Map;
+    let map = new Map();
 
     let recipeLocation = artifacts['recipeLocation'];
     recipeLocation = recipeLocation.substring(7);

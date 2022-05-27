@@ -3,8 +3,11 @@ const adminPanel = document.getElementById('admin_form')
 let isAdminPanelOpen = false;
 
 function findMax() {
+  /*
   if (eastLimit < northLimit) return eastLimit;
   else return northLimit;
+  */
+  return mapSize;
 }
 
 //create random artifact placement

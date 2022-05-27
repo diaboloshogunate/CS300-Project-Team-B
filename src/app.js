@@ -1,5 +1,5 @@
-let northLimit = 128;
-let eastLimit = 128;
+let mapSize = 128;
+let attemptLoad = true;
 let startingPosition = new Vector(0,0);
 let startingEnergy   = 1000;
 let startingSupplies = 90;

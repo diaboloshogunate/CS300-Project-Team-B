@@ -3,8 +3,7 @@ function updateConfig()
     var valid = true;
     //Get values
     const coordMatch = /^\(([0-9]+),([0-9]+)\)$/
-    const north = parseInt(document.getElementById("northLimit").value);
-    const east = parseInt( document.getElementById("eastLimit").value);
+    const size = parseInt(document.getElementById("mapSize").value);
     const startLocation = document.getElementById("startLocation").value;
     const startEnergy = parseInt( document.getElementById("startEnergy").value);
     const startSupplies = parseInt(document.getElementById("startSupplies").value);
@@ -22,21 +21,20 @@ function updateConfig()
     const parsedWormholeY = parseInt(parsedWormholeLocation[2]);
 
     //Check validity
-    if(east < 10 || north < 10)
+    if(size < 10)
         valid = false;
     else if(parsedStartLocation.length != 3 || parsedWormholeLocation.length != 3)
         valid = false;
-    else if(parsedStartX < 0 || parsedStartX >= east || parsedStartY < 0 || parsedStartY >= north)
+    else if(parsedStartX < 0 || parsedStartX >= size || parsedStartY < 0 || parsedStartY >= size)
         valid = false;
-    else if(parsedWormholeX < 0 || parsedWormholeX >= east || parsedWormholeY < 0 || parsedWormholeY >= north)
+    else if(parsedWormholeX < 0 || parsedWormholeX >= size || parsedWormholeY < 0 || parsedWormholeY >= size)
         valid = false;
     else if(startEnergy < 1 || startSupplies < 1 || startCredits < 0)
         valid = false;
 
-        /*
+        
     alert(
-        "North Limit: " + north
-    + "\nEast Limit: " + east
+        "Map size: " + size
     + "\nStart: " + "(" + parsedStartX + "," + parsedStartY + ")"
     + "\nEnergy: " + startEnergy
     + "\nSupplies: " + startSupplies
@@ -44,7 +42,7 @@ function updateConfig()
     + "\nImmortal: " + playerImmortal
     + "\nFixed Wormhole: " + fixedWormhole
     + "\nFixed Wormhole Location: " + "(" + parsedWormholeX + "," + parsedStartY + ")"
-    );*/
+    );
 
     //Pass values into config and go to game if valid
     if(!valid)
@@ -53,8 +51,7 @@ function updateConfig()
     }
     else
     {
-        northLimit = north;
-        eastLimit = east;
+        mapSize = size;
         startingPosition = new Vector(parsedStartX, parsedStartY);
         startingEnergy = startEnergy;
         startingSupplies = startSupplies;
@@ -63,6 +60,12 @@ function updateConfig()
         fixedWormholeBehavior = fixedWormhole;
         fixedWormholeLocation.x = parsedWormholeX;
         fixedWormholeLocation.y = parsedWormholeY;
+        startingMap = setMap()
+        player.map = startingMap;
+        player.position = startingPosition;
+        player.credits = startingCredits;
+        player.energy = startingEnergy;
+        player.supplies = startingSupplies;
         document.getElementById("location").value = "(" + startingPosition.x + "," + startingPosition.y + ")";
         document.getElementById("energy").value = startingEnergy;
         document.getElementById("supplies").value = startingSupplies;

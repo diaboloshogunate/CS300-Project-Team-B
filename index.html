@@ -62,12 +62,8 @@
                 <form onsubmit="updateConfig();return false">
                     <h1>Dev Settings:</h1>
                     <div class="form-group">
-                        <label for="northLimit">Northern Limit</label>
-                        <input type="text" value="128" size="6" maxlength="6" class="form-control" id="northLimit">
-                    </div>
-                    <div class="form-group">
-                        <label for="eastLimit">Eastern Limit</label>
-                        <input type="text" value="128" size="6" maxlength="6" class="form-control" id="eastLimit">
+                        <label for="mapSize">Map Size</label>
+                        <input type="text" value="128" size="6" maxlength="6" class="form-control" id="mapSize">
                     </div>
                     <div class="form-group">
                         <label for="startLocation">Starting Location</label>
@@ -79,7 +75,7 @@
                         <input type="text" value="1000" size="6" maxlength="6" class="form-control" id="startEnergy">
                     </div>
                     <div class="form-group">
-                        <label for="startSupplies">Starting Energy</label>
+                        <label for="startSupplies">Starting Supplies</label>
                         <input type="text" value="90%" size="6" maxlength="6" class="form-control" id="startSupplies">
                     </div>
                     <div class="form-group">
@@ -93,6 +89,10 @@
                     <div class="form-check">
                         <label class="form-check-label" for="fixedWormholeBehavior">Fixed Wormhole Behavior</label>
                         <input class="form-check-input" type="checkbox" id="fixedWormholeBehavior">
+                    </div>
+                    <div class="form-check">
+                        <label class="form-check-label" for="mapFromFile">Load Map From File</label>
+                        <input class="form-check-input" type="checkbox" id="mapFromFile">
                     </div>
                     <div class="form-group">
                         <label for="fixedWormholeLocation">Fixed Wormhole Location</label>
