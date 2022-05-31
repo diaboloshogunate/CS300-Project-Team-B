@@ -9,7 +9,7 @@ function findMax() {
   */
   return mapSize;
 }
-
+/*
 //create random artifact placement
 function randomPlacement() {
   let artList = {};
@@ -20,7 +20,7 @@ function randomPlacement() {
   }
   return artList;
 }
-
+*/
 function admin_init() {
   if (isAdminPanelOpen === true) {
     return;

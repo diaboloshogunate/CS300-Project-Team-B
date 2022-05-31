@@ -1,11 +1,15 @@
 let oldSpiceMap;
 function setMap(){
-    retrieveMap = localStorage.getItem('oldSpiceMap');
-    if( attemptLoad){ //Had to add this so you can change the map with dev settings
+    
+    if(true == attemptLoad){ //Had to add this so you can change the map with dev settings
+        console.log("Attempting load");
+        retrieveMap = localStorage.getItem('oldSpiceMap');
         oldSpiceMap = JSON.parse(retrieveMap);
         if(oldSpiceMap != null)
             return setStoredMap();
+        console.log("Load Failed");
     }
+    console.log("Making random map");
     return setRandMap();
 }
 function randomPlacement(){
@@ -16,6 +20,7 @@ function randomPlacement(){
         let position = new Object;
         let x = Math.floor(Math.random() * mapSize);
         let y = Math.floor(Math.random() * mapSize);
+        console.log("(" + x + ", " + y + ")");
         position['x'] = x;
         position['y'] = y;
         return position;
@@ -31,7 +36,7 @@ function randomPlacement(){
 
 }
 function setRandMap(){
-    console.log('set random')
+
     let map = new Map(mapSize, filledArray2(mapSize, () => new Cell()));
 
     let artifacts = randomPlacement();

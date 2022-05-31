@@ -10,6 +10,7 @@ function updateConfig()
     const startCredits = parseInt(document.getElementById("startEnergy").value);
     const playerImmortal = document.getElementById("immortal").checked;
     const fixedWormhole = document.getElementById("fixedWormholeBehavior").checked;
+    const loadMap = document.getElementById("mapFromFile").checked;
     const wormholeLocation = document.getElementById("fixedWormholeLocation").value;
 
     //Parse Values
@@ -39,6 +40,7 @@ function updateConfig()
     + "\nEnergy: " + startEnergy
     + "\nSupplies: " + startSupplies
     + "\nCredits: " + startCredits
+    + "\nAttempt Load: " + loadMap
     + "\nImmortal: " + playerImmortal
     + "\nFixed Wormhole: " + fixedWormhole
     + "\nFixed Wormhole Location: " + "(" + parsedWormholeX + "," + parsedStartY + ")"
@@ -57,6 +59,7 @@ function updateConfig()
         startingSupplies = startSupplies;
         startingCredits = startCredits;
         immortal = playerImmortal;
+        attemptLoad = loadMap;
         fixedWormholeBehavior = fixedWormhole;
         fixedWormholeLocation.x = parsedWormholeX;
         fixedWormholeLocation.y = parsedWormholeY;
