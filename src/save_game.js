@@ -15,26 +15,50 @@ function save_game() {
     player_save["startingCredits"] = player.credits;
     player_save["immortal"] = immortal;
     map = player.map;
-    cells = map.cells;
-    cellArray = [];
-    for (let i = 0; i < cells.length; i++) {
-      let array = cells[i];
-      for (var j = 0; j < array.length; j++) {
-        if (!array[j].isHidden) {
-          cellArray.push({ cellInfo: array[j], x: i, y: j });
-        }
-        if (array[j].backgroundColor !== "#000") {
-          cellArray.push({ cellInfo: array[j], x: i, y: j });
-        }
-      }
-    }
+    player_save["map"] = map;
     player_save["mapSize"] = map.size;
-    player_save["visibleCells"] = cellArray;
+    console.log(player_save);
     localStorage.setItem("user_" + name, JSON.stringify(player_save));
-    retrievePlayer = localStorage.getItem("user_" + name);
-    loadPlayer = JSON.parse(retrievePlayer);
-    console.log("load player", loadPlayer);
   } catch (error) {
     console.log(error);
   }
+}
+function load_game() {
+  let username = document.getElementById("loadUsername");
+  let name = username.value;
+  retrievePlayer = localStorage.getItem("user_" + name);
+  load = JSON.parse(retrievePlayer);
+  console.log("load player", load);
+  let mapCells = load.map.cells;
+  let mapSize = load.map.size;
+  let map = new Map(mapSize, mapCells);
+  let startPosition = new Vector(
+    parseInt(load.startingPositionX),
+    parseInt(load.startingPositionY)
+  );
+  console.log(load.startingCredits);
+
+  let player = new Player(
+    startPosition,
+    parseInt(load.startingEnergy),
+    1000,
+    parseInt(load.startingSupplies),
+    parseInt(load.startingCredits),
+    new Map()
+  );
+  /*
+  try {
+    player.energy = parseInt(load.startingEnergy);
+    player.credits = parseInt(load.startingCredits);
+    player.position = startPosition;
+    player.supplies = parseInt(load.startingSupplies);
+    console.log(load.startingCredits);
+    player.map = map;
+  } catch (error) {
+    console.log(error);
+  }
+  */
+  render();
+
+  return false;
 }
