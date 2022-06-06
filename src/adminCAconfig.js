@@ -1,13 +1,18 @@
 const MaxCoord = findMax();
-const adminPanel = document.getElementById('admin_form')
+const adminPanel = document.getElementById("admin_form");
 let isAdminPanelOpen = false;
-
+/**
+ * returns the max between northlimit and eastlimit
+ * @return {number}
+ */
 function findMax() {
   if (eastLimit < northLimit) return eastLimit;
   else return northLimit;
 }
-
-//create random artifact placement
+/**
+ * creates an obect of artifacts and the location
+ * @return {object} artifacts and their location cordinates x and y
+ */
 function randomPlacement() {
   let artList = {};
   for (let i = 1; i <= 7; i++) {
@@ -17,31 +22,41 @@ function randomPlacement() {
   }
   return artList;
 }
-
+/**
+ * checks if admin form is currently open on screen
+ * @return {void}
+ */
 function admin_init() {
   if (isAdminPanelOpen === true) {
     return;
   }
 
-  document.getElementById("admin_form").removeAttribute('style');
+  document.getElementById("admin_form").removeAttribute("style");
   console.log("hello");
   console.log(startingEnergy);
   isAdminPanelOpen = true;
 }
 
+/**
+ * removes admin form from display on cancel
+ * @return {false}
+ */
 function onCancelAdminInit(e) {
-  console.log(e)
+  console.log(e);
   e.preventDefault();
   console.log("cancel");
   isAdminPanelOpen = false;
-  document.getElementById("admin_form").setAttribute('style', 'display:none');
+  document.getElementById("admin_form").setAttribute("style", "display:none");
   return false;
 }
-
-//Get values from artifacts form. Map each artifact to
-//vector coordinates in artifacts object
+/**
+ * Get values from artifacts form. Map each artifact to
+ * vector coordinates in artifacts object
+ * removes admin form from display on cancel
+ * @return {false}
+ */
 function setArtifacts() {
-  console.log(adminPanel.elements['admin_pw'].value)
+  console.log(adminPanel.elements["admin_pw"].value);
   let check = document.getElementById("admin_pw").value;
   if (check !== "password123") {
     alert("Incorrect password");
@@ -105,6 +120,12 @@ function setArtifacts() {
     }
   }
 }
+/**
+ * creates an object with x and y cordinates
+ * @param {number} cordx x cordinate
+ * @param {number} cordy y cordinate
+ * @return {object} x and y coordinates
+ */
 function setCoordinates(cordx, cordy) {
   let position = new Object();
   let x = parseInt(cordx);
