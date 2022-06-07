@@ -1,4 +1,6 @@
 class AbandonedFreighter extends Cell {
+    backgroundColor = `#1f421f`
+
     #supplies
     #energy
 
@@ -8,6 +10,10 @@ class AbandonedFreighter extends Cell {
 
     get energy() {
         return this.#energy
+    }
+
+    get name () {
+        return `Abandoned Freighter`
     }
 
     onPlayerCollision(player) {

@@ -4,6 +4,10 @@ class Celeron extends Planet {
     isHidden = false
     backgroundColor = `#004b88`
 
+    get name () {
+        return `Celeron`
+    }
+
     receiveCargo(wallet, ship) {
         // get contract and load cargo for 100 credits
     }

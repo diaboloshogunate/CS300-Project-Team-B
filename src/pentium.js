@@ -12,7 +12,7 @@ class Pentium extends Planet {
     }
 
     get name () {
-        return `Pentium-${this.#number}`
+        return `Pentium ${this.#number}`
     }
 
     get number () {

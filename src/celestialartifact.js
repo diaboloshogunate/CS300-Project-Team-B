@@ -1,4 +1,10 @@
 class CelestialArtifact extends Cell {
+    backgroundColor = `#ffffc0`
+
+    get name () {
+        return `Celestial Artifact`
+    }
+
     onPlayerCollision(player) {
         super.onPlayerCollision(player);
         let roll  = Math.random()

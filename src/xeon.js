@@ -4,6 +4,10 @@ class Xeon extends Planet {
     isHidden = false
     backgroundColor = `#144587`
 
+    get name () {
+        return `Xeon`
+    }
+
     deliverCargo(wallet, ship) {
 
     }

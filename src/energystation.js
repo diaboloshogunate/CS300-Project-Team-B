@@ -1,6 +1,11 @@
 class EnergyStation extends Cell {
     #hasMiniMart
     #hasRepairDepot
+    backgroundColor = `#00a214`
+
+    get name () {
+        return `Energy Station`
+    }
 
     buySupplies(amount, wallet, ship) {
         if(!this.#hasMiniMart) {
