@@ -10,7 +10,8 @@ class Player {
   #_credits;
   #_map;
   #_eventManager;
-  #_debug
+  #_debug;
+  #_hasRecipe;
 
   /**
    * create a player
@@ -31,6 +32,7 @@ class Player {
     this.#_eventManager = new EventManager()
     this.#_eventManager.trigger(Event.playerMessage, `All Systems Ready`)
     this.#_state = PlayerState.Space
+    this.#_hasRecipe = false
   }
 
   get state()
@@ -42,6 +44,18 @@ class Player {
   {
     validateType(value, PlayerState)
     this.#_state = value
+  }
+
+  get isAlive() {
+    return this.state !== PlayerState.Dead
+  }
+
+  get hasRecipe() {
+    return this.#_hasRecipe
+  }
+
+  set hasRecipe(value) {
+    this.#_hasRecipe = !!value
   }
 
   /**
@@ -80,9 +94,15 @@ class Player {
    * @param {number} value
    */
   set energy(value) {
-    validateSafeInt(value);
+    validateSafeInt(value)
 
-    this.#_energy = clamp(value, 0, this.energyCapacity);
+    this.#_energy = clamp(value, 0, this.energyCapacity)
+
+    if(this.#_energy === 0) {
+      player.state = PlayerState.Dead
+      this.#_eventManager.trigger(Event.playerMessage, `You ran out of energy. You lose the game`)
+      this.#_eventManager.trigger(Event.playerDeath, player)
+    }
   }
 
   /**
@@ -98,6 +118,7 @@ class Player {
    * @param {number} value
    */
   set energyCapacity(value) {
+    if(!this.isAlive) return;
     validateSafeInt(value);
 
     this.#_energyCapacity = value;
@@ -116,12 +137,14 @@ class Player {
    * @param {number} value
    */
   set supplies(value) {
-    validateSafeInt(value);
-    value = clamp(value, 0, 100);
+    if(!this.isAlive) return;
+    validateSafeInt(value)
+    value = clamp(value, 0, 100)
 
-    this.#_supplies = value;
+    this.#_supplies = value
 
     if (this.#_supplies === 0) {
+      player.state = PlayerState.Dead
       this.#_eventManager.trigger(Event.playerMessage, `Ran out of supplies. You lose the game`)
       this.#_eventManager.trigger(Event.playerDeath, player)
     }
@@ -140,6 +163,7 @@ class Player {
    * @param {number} value
    */
   set credits(value) {
+    if(!this.isAlive) return;
     validateSafeInt(value);
 
     this.#_credits = value;
@@ -158,6 +182,7 @@ class Player {
    * @param {Map} value
    */
   set map(value) {
+    if(!this.isAlive) return;
     validateType(value, Map);
 
     this.#_map = value;
@@ -186,6 +211,7 @@ class Player {
    * @param {number} magnitude distance in units
    */
   move(direction, magnitude) {
+    if(!this.isAlive) return;
     validateFloat(direction);
     validateSafeInt(magnitude);
 
@@ -200,6 +226,7 @@ class Player {
         distanceTraveled <= magnitude;
         distanceTraveled++
       ) {
+        if(!this.isAlive) return;// check before each new step
         let movement = polarToCoordinate(direction, distanceTraveled);
         let nextPosition = new Vector(
           startingPosition.x + movement.x,
@@ -221,9 +248,14 @@ class Player {
         case currentCell instanceof AbandonedFreighter:
           this.state = PlayerState.Freighter
           break
+        case currentCell instanceof Planet:
+          this.state = PlayerState.NearPlanet
+          break
         default:
+          this.state = PlayerState.Space
           break
       }
+
       this.supplies = this.supplies - 2;
     }
   }
@@ -234,6 +266,7 @@ class Player {
    * @param {number} radius distance of the scan
    */
   scan(position, radius) {
+    if(!this.isAlive) return;
     const startX = clamp(position.x - radius, 0, this.map.size - 1);
     const endX = clamp(position.x + radius, 0, this.map.size - 1);
     const startY = clamp(position.y - radius, 0, this.map.size - 1);
@@ -247,6 +280,34 @@ class Player {
     this.supplies = this.supplies - 2;
   }
 
+  enterOrbit() {
+    if(!this.isAlive) return;
+    if(player.state !== PlayerState.NearPlanet) throw `Can not enter orbit planet from current state. ${this.#_state}`
+    this.supplies = this.supplies - 1
+    this.#_state = PlayerState.OrbitPlanet
+  }
+
+  exitOrbit() {
+    if(!this.isAlive) return;
+    if(player.state !== PlayerState.OrbitPlanet) throw `Can not exit orbit planet from current state. ${this.#_state}`
+    this.supplies = this.supplies - 1
+    this.#_state = PlayerState.NearPlanet
+  }
+
+  land() {
+    if(!this.isAlive) return;
+    if(player.state !== PlayerState.OrbitPlanet) throw `Can not land on planet from current state. ${this.#_state}`
+    this.supplies = this.supplies - 1;
+    this.#_state = PlayerState.LandedOnPlanet
+  }
+
+  liftoff() {
+    if(!this.isAlive) return;
+    if(player.state !== PlayerState.LandedOnPlanet) throw `Can not land on planet from current state. ${this.#_state}`
+    this.supplies = this.supplies - 1;
+    this.#_state = PlayerState.OrbitPlanet
+  }
+
   debugInfo() {
     const cells = {};
     this.map.cells.forEach((column, x) => {
@@ -255,25 +316,51 @@ class Player {
           if (!cells[cell.name]) {
             cells[cell.name] = [];
           }
-          cells[cell.name].push({
-            position: `${x}, ${y}`,
-            isHidden: cell.isHidden,
-            backgroundColor: cell.backgroundColor
-          })
+
+          cells[cell.name].push(this.#debugCell(cell, new Vector(x, y)))
         }
       })
     })
+
     const debug = {
-      'Stats': {
-        'Supplies': this.supplies,
-        'Energy': this.energy,
+      'player': {
+        'state':          this.state.name,
+        'supplies':       this.supplies,
+        'energy':         this.energy,
         'energyCapacity': this.energyCapacity,
-        'Credits': this.credits,
-        'Position': `${this.position.x}, ${this.position.y}`,
+        'credits':        this.credits,
+        'position':       `(${this.position.x}, ${this.position.y})`,
+        'cell':           this.#debugCell(player.map.get(player.position), player.position)
       },
       'Map': cells
     }
     return `<pre><code class="language-js">${JSON.stringify(debug, null,  4)}</code></pre>`
+  }
+
+  #debugCell(cell, position) {
+    let debugInfo = {
+      'name':            cell.name,
+      'position':        `(${position.x}, ${position.y})`,
+      'isHidden':        cell.isHidden,
+      'backgroundColor': cell.backgroundColor,
+    }
+
+    if(cell instanceof Pentium) {
+      debugInfo = {
+        ...debugInfo,
+        'recipe': cell.hasRecipe,
+        'number': cell.number,
+      }
+    }
+    if(cell instanceof AbandonedFreighter) {
+      debugInfo = {
+        ...debugInfo,
+        'energy':   cell.energy,
+        'supplies': cell.supplies,
+      }
+    }
+
+    return debugInfo
   }
 
   /**

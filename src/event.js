@@ -27,6 +27,18 @@ class Event
      */
     static DisableDebug = new Event("config.debug_disable")
 
+    /**
+     * won the game
+     * @type {Event}
+     */
+    static Win = new Event("game.won")
+
+    /**
+     * lost the game
+     * @type {Event}
+     */
+    static Lose = new Event("game.lost")
+
     constructor(name) {
         this.name = name
     }

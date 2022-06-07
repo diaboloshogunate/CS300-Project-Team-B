@@ -4,6 +4,12 @@ class AbandonedFreighter extends Cell {
     #supplies
     #energy
 
+    constructor(position, supplies, energy) {
+        super(position);
+        this.#supplies = supplies || 0
+        this.#energy   = energy || 0
+    }
+
     get supplies() {
         return this.#supplies
     }
