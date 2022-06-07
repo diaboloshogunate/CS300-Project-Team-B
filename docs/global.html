@@ -104,6 +104,112 @@
     
 
     
+    <h4 class="name" id="admin_init"><span class="type-signature"></span>admin_init<span class="signature">()</span><span class="type-signature"> &rarr; {void}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    checks if admin form is currently open on screen
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="adminCAconfig.js.html">adminCAconfig.js</a>, <a href="adminCAconfig.js.html#line29">line 29</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="clamp"><span class="type-signature"></span>clamp<span class="signature">(num, min, max)</span><span class="type-signature"> &rarr; {number}</span></h4>
     
 
@@ -824,6 +930,112 @@
     
 
     
+    <h4 class="name" id="findMax"><span class="type-signature"></span>findMax<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    returns the max between northlimit and eastlimit
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="adminCAconfig.js.html">adminCAconfig.js</a>, <a href="adminCAconfig.js.html#line8">line 8</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="normalize"><span class="type-signature"></span>normalize<span class="signature">(value, maxValue)</span><span class="type-signature"> &rarr; {number}</span></h4>
     
 
@@ -985,6 +1197,112 @@
     <dd>
         
 <span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="onCancelAdminInit"><span class="type-signature"></span>onCancelAdminInit<span class="signature">()</span><span class="type-signature"> &rarr; {false}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    removes admin form from display on cancel
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="adminCAconfig.js.html">adminCAconfig.js</a>, <a href="adminCAconfig.js.html#line44">line 44</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">false</span>
 
 
     </dd>
@@ -1167,6 +1485,844 @@
     <dd>
         
 <span class="param-type"><a href="Vector.html">Vector</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="randomPlacement"><span class="type-signature"></span>randomPlacement<span class="signature">()</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    creates an obect of artifacts and the location
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="adminCAconfig.js.html">adminCAconfig.js</a>, <a href="adminCAconfig.js.html#line16">line 16</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    artifacts and their location cordinates x and y
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="randomPlacement"><span class="type-signature"></span>randomPlacement<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    creats random mappings of artifacts to locations
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="setMap.js.html">setMap.js</a>, <a href="setMap.js.html#line17">line 17</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    object with artifact mappings
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="setArtifacts"><span class="type-signature"></span>setArtifacts<span class="signature">()</span><span class="type-signature"> &rarr; {false}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Get values from artifacts form. Map each artifact tovector coordinates in artifacts objectremoves admin form from display on cancel
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="adminCAconfig.js.html">adminCAconfig.js</a>, <a href="adminCAconfig.js.html#line58">line 58</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">false</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="setCoordinates"><span class="type-signature"></span>setCoordinates<span class="signature">(cordx, cordy)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    creates an object with x and y cordinates
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cordx</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">x cordinate</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cordy</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">y cordinate</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="adminCAconfig.js.html">adminCAconfig.js</a>, <a href="adminCAconfig.js.html#line129">line 129</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    x and y coordinates
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="setMap"><span class="type-signature"></span>setMap<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Map.html">Map</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    retrieves map settings from local storage
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="setMap.js.html">setMap.js</a>, <a href="setMap.js.html#line6">line 6</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    returns map object with new settings
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Map.html">Map</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="setRandMap"><span class="type-signature"></span>setRandMap<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Map.html">Map</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    sets random map
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="setMap.js.html">setMap.js</a>, <a href="setMap.js.html#line42">line 42</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    returns map object with random settings
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Map.html">Map</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="setStoredMap"><span class="type-signature"></span>setStoredMap<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Map.html">Map</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    sets stored map
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="setMap.js.html">setMap.js</a>, <a href="setMap.js.html#line71">line 71</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    returns map object with stored settings
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Map.html">Map</a></span>
 
 
     </dd>
@@ -2099,13 +3255,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Event.html">Event</a></li><li><a href="EventManager.html">EventManager</a></li><li><a href="Map.html">Map</a></li><li><a href="Player.html">Player</a></li><li><a href="Vector.html">Vector</a></li></ul><h3>Global</h3><ul><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#degreeToRad">degreeToRad</a></li><li><a href="global.html#filledArray">filledArray</a></li><li><a href="global.html#filledArray2">filledArray2</a></li><li><a href="global.html#normalize">normalize</a></li><li><a href="global.html#polarToCoordinate">polarToCoordinate</a></li><li><a href="global.html#validateArray2Size">validateArray2Size</a></li><li><a href="global.html#validateArraySize">validateArraySize</a></li><li><a href="global.html#validateFloat">validateFloat</a></li><li><a href="global.html#validateMapPosition">validateMapPosition</a></li><li><a href="global.html#validateSafeInt">validateSafeInt</a></li><li><a href="global.html#validateType">validateType</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Event.html">Event</a></li><li><a href="EventManager.html">EventManager</a></li><li><a href="Map.html">Map</a></li><li><a href="Player.html">Player</a></li><li><a href="Vector.html">Vector</a></li></ul><h3>Global</h3><ul><li><a href="global.html#admin_init">admin_init</a></li><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#degreeToRad">degreeToRad</a></li><li><a href="global.html#filledArray">filledArray</a></li><li><a href="global.html#filledArray2">filledArray2</a></li><li><a href="global.html#findMax">findMax</a></li><li><a href="global.html#normalize">normalize</a></li><li><a href="global.html#onCancelAdminInit">onCancelAdminInit</a></li><li><a href="global.html#polarToCoordinate">polarToCoordinate</a></li><li><a href="global.html#randomPlacement">randomPlacement</a></li><li><a href="global.html#setArtifacts">setArtifacts</a></li><li><a href="global.html#setCoordinates">setCoordinates</a></li><li><a href="global.html#setMap">setMap</a></li><li><a href="global.html#setRandMap">setRandMap</a></li><li><a href="global.html#setStoredMap">setStoredMap</a></li><li><a href="global.html#validateArray2Size">validateArray2Size</a></li><li><a href="global.html#validateArraySize">validateArraySize</a></li><li><a href="global.html#validateFloat">validateFloat</a></li><li><a href="global.html#validateMapPosition">validateMapPosition</a></li><li><a href="global.html#validateSafeInt">validateSafeInt</a></li><li><a href="global.html#validateType">validateType</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Mon May 23 2022 21:21:35 GMT-0700 (Pacific Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Mon Jun 06 2022 17:23:54 GMT-0700 (Pacific Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

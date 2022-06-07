@@ -15,6 +15,18 @@ class Event
      */
     static playerDeath = new Event("player.death")
 
+    /**
+     * enable debug
+     * @type {Event}
+     */
+    static EnableDebug = new Event("config.debug_enabled")
+
+    /**
+     * Show debug
+     * @type {Event}
+     */
+    static DisableDebug = new Event("config.debug_disable")
+
     constructor(name) {
         this.name = name
     }

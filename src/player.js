@@ -9,6 +9,7 @@ class Player {
   #_credits;
   #_map;
   #_eventManager;
+  #_debug
 
   /**
    * create a player
@@ -150,6 +151,22 @@ class Player {
   }
 
   /**
+   * get debug mode
+   * @returns {boolean}
+   */
+  get debug() {
+    return this.#_debug
+  }
+
+  /**
+   * set debug mode
+   * @param value
+   */
+  set debug(value) {
+    this.#_debug = !!value
+  }
+
+  /**
    * move the player in a direction for a given distance
    * player will move one unit at a time until it reaches the final point
    * @param {number} direction angle in rads such as Math.PI
@@ -207,6 +224,35 @@ class Player {
       }
     }
     this.supplies = this.supplies - 2;
+  }
+
+  debugInfo() {
+    const cells = {};
+    this.map.cells.forEach((column, x) => {
+      column.forEach((cell, y) => {
+        if(cell.name !== undefined) {
+          if (!cells[cell.name]) {
+            cells[cell.name] = [];
+          }
+          cells[cell.name].push({
+            position: `${x}, ${y}`,
+            isHidden: cell.isHidden,
+            backgroundColor: cell.backgroundColor
+          })
+        }
+      })
+    })
+    const debug = {
+      'Stats': {
+        'Supplies': this.supplies,
+        'Energy': this.energy,
+        'energyCapacity': this.energyCapacity,
+        'Credits': this.credits,
+        'Position': `${this.position.x}, ${this.position.y}`,
+      },
+      'Map': cells
+    }
+    return `<pre><code class="language-js">${JSON.stringify(debug, null,  4)}</code></pre>`
   }
 
   /**

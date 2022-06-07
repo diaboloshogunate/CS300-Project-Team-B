@@ -44,4 +44,20 @@ function scanner(){
 function render() {
     document.getElementById('game-player-stats').innerHTML = player.toString()
     document.getElementById('game-map').innerHTML = player.map.toString() + `<div id="game-map-player" style="left: ${player.position.x * 8 + 2}px; bottom: ${player.position.y * 8 + 2}px;"></div>`
+    renderDebug()
+}
+
+function renderDebug() {
+    if(player.debug) {
+        document.getElementById('game-debug').innerHTML = player.debugInfo()
+        Prism.highlightAll()
+        return
+    }
+
+    document.getElementById('game-debug').innerHTML = ``
+}
+
+function debugToggle() {
+    player.debug = !player.debug
+    renderDebug()
 }
