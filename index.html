@@ -3,8 +3,8 @@
 
 <head>
     <meta http-equiv="content-type" content="text/html; charset=windows-1252">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         #game-map {
             position: relative;
@@ -38,13 +38,21 @@
         .table td {
             vertical-align: middle;
         }
+
+        .callout {
+            padding: 1.25rem;
+            background-color: rgba(13, 202, 240, 0.075);
+            border-left: 0.25rem solid rgba(13, 202, 240, 0.5);
+        }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
     <!-- Since all of the page content is dependent on js code, keep it in the head so it has to load first-->
     <script type="application/javascript" src="src/util.js"></script>
     <script type="application/javascript" src="src/vector.js"></script>
     <script type="application/javascript" src="src/event.js"></script>
     <script type="application/javascript" src="src/eventManager.js"></script>
     <script type="application/javascript" src="src/map.js"></script>
+    <script type="application/javascript" src="src/playerState.js"></script>
     <script type="application/javascript" src="src/player.js"></script>
     <script type="application/javascript" src="src/cell.js"></script>
     <script type="application/javascript" src="src/wormhole.js"></script>
@@ -54,6 +62,8 @@
     <script type="application/javascript" src="src/celeron.js"></script>
     <script type="application/javascript" src="src/ryzen.js"></script>
     <script type="application/javascript" src="src/xeon.js"></script>
+    <script type="application/javascript" src="src/enaic.js"></script>
+    <script type="application/javascript" src="src/abandonedFreighter.js"></script>
     <script type="application/javascript" src="src/setMap.js"></script>
     <script type="application/javascript" src="src/app.js"></script>
     <script type="application/javascript" src="src/devSettings.js"></script>
@@ -122,11 +132,12 @@
             <div class="row">
                 <div class="col">
                     <div id="game-player-stats"></div>
+                    <div id="message" class="callout"></div>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    <h1>G.S.S. OldSpice Bridge Display</h1>
+                    <h1 class="mt-3">G.S.S. OldSpice Bridge Display</h1>
                     <form class="moveForm" onsubmit="return false;">
                         <!--Add an onSubmit here when the movement script is created-->
                         <div class="form-group">
@@ -144,38 +155,19 @@
                         </div>
 
                         <div class="btn-group" role="group">
-                            <button class="btn btn-warning mt-3" type="button" value="Deploy Scanners"
-                                onclick="scanner()">Deploy Scanner</button>
-                            <button class="btn btn-success mt-3" type="submit" value="Proceed"
-                                onclick="proceed()">Proceed</button>
+                            <button id="scanner-action" class="btn btn-warning mt-3" type="button" value="Deploy Scanners" onclick="scanner()">Deploy Scanner</button>
+                            <button id="move-action" class="btn btn-primary mt-3" type="submit" value="Proceed" onclick="move()">Move</button>
+                            <button id="freight-action" class="btn btn-primary mt-3" type="submit" value="Freighter" onclick="collectFreighterSupplies()">Collect Freighter Supplies</button>
+                            <button id="enter-orbit-action" class="btn btn-secondary mt-3" type="submit" value="Enter Orbit" onclick="orbitEnter()">Enter Orbit</button>
+                            <button id="exit-orbit-action" class="btn btn-secondary mt-3" type="submit" value="Leave Orbit" onclick="orbitExit()">Leave Orbit</button>
+                            <button id="land-action" class="btn btn-secondary mt-3" type="submit" value="Land" onclick="land()">Land</button>
+                            <button id="lift-action" class="btn btn-secondary mt-3" type="submit" value="Lift Off" onclick="liftOff()">Lift Off</button>
+                            <button id="take-recipe-action" class="btn btn-success mt-3" type="submit" value="Take Recipe" onclick="takeRecipe()">Take Recipe</button>
+                            <button id="leave-recipe-action" class="btn btn-success mt-3" type="submit" value="Leave Recipe" onclick="returnRecipe()">Leave Recipe</button>
+                            <button class="btn btn-dark mt-3" type="submit" onclick="debugToggle()">Toggle Debug</button>
                         </div>
                     </form>
 
-                    <h1 class="mt-3">CURRENT STATUS</h1>
-                    <form>
-                        <div class="form-group">
-                            <label for="location">Current Location</label>
-                            <input type="text" value="(000,000)" size="8" maxlength="8" class="form-control"
-                                id="location">
-                        </div>
-                        <div class="form-group">
-                            <label for="energy">Energy</label>
-                            <input type="text" value="100" size="6" maxlength="6" class="form-control" id="energy">
-                        </div>
-                        <div class="form-group">
-                            <label for="supplies">Supplies</label>
-                            <input type="text" value="90%" size="6" maxlength="6" class="form-control" id="supplies">
-                        </div>
-                        <div class="form-group">
-                            <label for="credits">Credits</label>
-                            <input type="text" value="100" size="6" maxlength="6" class="form-control" id="credits">
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <input type="text" value="All Systems Ready" size="25" maxlength="25" class="form-control"
-                                id="message">
-                        </div>
-                    </form>
 
                     <form onsubmit="save_game();return false" class="row row-cols-lg-auto g-3 align-items-center mt-3">
                         <div class="col-12">
@@ -188,8 +180,9 @@
                             <button type="submit" id="btn_save" class="btn btn-primary">Save Game</button>
                         </div>
                     </form>
-                    <button class="btn btn-secondary mt-3 artifact_admin" id="btn_admin" onclick=admin_init()>Admin
-                        Setup</button>
+                    <div id="game-debug" class="mt-3"></div>
+
+                    <button class="btn btn-secondary mt-3 artifact_admin" id="btn_admin" onclick=admin_init()>Admin Setup</button>
 
                 </div>
             </div>

@@ -11,57 +11,28 @@ function setMap() {
   return setStoredMap();
 }
 /**
- * creats random mappings of artifacts to locations
- * @return {Object} object with artifact mappings
- */
-function randomPlacement() {
-  let artifacts = {};
-  let x;
-  let y;
-  let setCoordinates = () => {
-    let position = new Object();
-    let x = Math.floor(Math.random() * 128);
-    let y = Math.floor(Math.random() * 128);
-    position["x"] = x;
-    position["y"] = y;
-    return position;
-  };
-  for (let i = 1; i <= 7; i++) {
-    artifacts["planet" + i] = setCoordinates();
-  }
-  artifacts["astroidField"] = setCoordinates();
-  artifacts["celeron"] = setCoordinates();
-  artifacts["ryzen"] = setCoordinates();
-  artifacts["xeon"] = setCoordinates();
-  return artifacts;
-}
-/**
  * sets random map
  * @return {Map} returns map object with random settings
  */
 function setRandMap() {
-  console.log("set random");
-  let map = new Map();
+  console.log(`generating random map`);
+  const map = new Map();
+  const recipeLocation = Math.ceil(Math.random() * 7);
 
-  let artifacts = randomPlacement();
-  let recipeLocation = Math.floor(Math.random() * 7);
-  let planet;
+  map.set(new Vector(0,0), new Eniac()) // first so the space wont be taken by something else
+  map.replaceRandomEmptyCell(new MeteorStorm());
+  map.replaceRandomEmptyCell(new Celeron());
+  map.replaceRandomEmptyCell(new Ryzen())
+  map.replaceRandomEmptyCell(new Xeon())
 
   for (let i = 1; i <= 7; i++) {
-    if (i === recipeLocation)
-      planet = new Pentium(artifacts["planet" + i], i, true);
-    else planet = new Pentium(artifacts["planet" + i], i, false);
-    map.set(artifacts["planet" + i], planet);
+    map.replaceRandomEmptyCell(new Pentium(i, i === recipeLocation));
   }
 
-  let meteor = new MeteorStorm();
-  map.set(artifacts["astroidField"], meteor);
-  let celeron = new Celeron();
-  map.set(artifacts["celeron"], celeron);
-  let ryzen = new Ryzen();
-  map.set(artifacts["ryzen"], ryzen);
-  let xeon = new Xeon();
-  map.set(artifacts["xeon"], xeon);
+  for(let n = 0; n <= 10; n++) {
+    map.replaceRandomEmptyCell(new AbandonedFreighter(Math.floor(Math.random() * 100) + 1, Math.floor(Math.random() * 500) + 1))
+  }
+
   return map;
 }
 /**

@@ -1,4 +1,10 @@
 class Wormhole extends Cell {
+    backgroundColor = `#521ecd`
+
+    get name () {
+        return `Wormhole`
+    }
+
     onPlayerCollision(player) {
         if(!player instanceof Player)
             throw `onPlayerCollision requires the player is passed in as an argument`

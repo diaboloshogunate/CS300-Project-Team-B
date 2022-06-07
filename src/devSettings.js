@@ -63,10 +63,6 @@ function updateConfig()
         fixedWormholeBehavior = fixedWormhole;
         fixedWormholeLocation.x = parsedWormholeX;
         fixedWormholeLocation.y = parsedWormholeY;
-        document.getElementById("location").value = "(" + startingPosition.x + "," + startingPosition.y + ")";
-        document.getElementById("energy").value = startingEnergy;
-        document.getElementById("supplies").value = startingSupplies;
-        document.getElementById("credits").value = startingCredits;
         document.getElementById("game").style.display = "block";
         document.getElementById("devSettings").style.display = "none";
     }

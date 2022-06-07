@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: adminCAconfig.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: adminCAconfig.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const MaxCoord = findMax();
+const adminPanel = document.getElementById("admin_form");
+let isAdminPanelOpen = false;
+/**
+ * returns the max between northlimit and eastlimit
+ * @return {number}
+ */
+function findMax() {
+  if (eastLimit &lt; northLimit) return eastLimit;
+  else return northLimit;
+}
+/**
+ * creates an obect of artifacts and the location
+ * @return {object} artifacts and their location cordinates x and y
+ */
+function randomPlacement() {
+  let artList = {};
+  for (let i = 1; i &lt;= 7; i++) {
+    x = Math.floor(Math.random() * MaxCoord);
+    y = Math.floor(Math.random() * MaxCoord);
+    artList["planet" + i] = setCoordinates(x, y);
+  }
+  return artList;
+}
+/**
+ * checks if admin form is currently open on screen
+ * @return {void}
+ */
+function admin_init() {
+  if (isAdminPanelOpen === true) {
+    return;
+  }
+
+  document.getElementById("admin_form").removeAttribute("style");
+  console.log("hello");
+  console.log(startingEnergy);
+  isAdminPanelOpen = true;
+}
+
+/**
+ * removes admin form from display on cancel
+ * @return {false}
+ */
+function onCancelAdminInit(e) {
+  console.log(e);
+  e.preventDefault();
+  console.log("cancel");
+  isAdminPanelOpen = false;
+  document.getElementById("admin_form").setAttribute("style", "display:none");
+  return false;
+}
+/**
+ * Get values from artifacts form. Map each artifact to
+ * vector coordinates in artifacts object
+ * removes admin form from display on cancel
+ * @return {false}
+ */
+function setArtifacts() {
+  console.log(adminPanel.elements["admin_pw"].value);
+  let check = document.getElementById("admin_pw").value;
+  if (check !== "password123") {
+    alert("Incorrect password");
+    return false;
+  } else {
+    let artifacts = {};
+    let x;
+    let y;
+    let badInput = false;
+    let validInput = (x) => {
+      if (x > MaxCoord || y > MaxCoord) badInput = true;
+      if (x &lt; 0 || y &lt; 0) badInput = true;
+    };
+    try {
+      for (let i = 1; i &lt;= 7; i++) {
+        x = document.querySelector("#p" + i + "-x").value;
+        y = document.querySelector("#p" + i + "-y").value;
+        validInput(x, y);
+        artifacts["planet" + i] = setCoordinates(x, y);
+      }
+      x = document.querySelector("#af1-x").value;
+      y = document.querySelector("#af1-y").value;
+      validInput(x, y);
+      artifacts["astroidField"] = setCoordinates(x, y);
+      x = document.querySelector("#ss1-x").value;
+      y = document.querySelector("#ss1-y").value;
+      validInput(x, y);
+      artifacts["celeron"] = setCoordinates(x, y);
+      x = document.querySelector("#ss2-x").value;
+      y = document.querySelector("#ss2-y").value;
+      validInput(x, y);
+      artifacts["ryzen"] = setCoordinates(x, y);
+      x = document.querySelector("#ss3-x").value;
+      y = document.querySelector("#ss3-y").value;
+      validInput(x, y);
+      artifacts["xeon"] = setCoordinates(x, y);
+
+      let recipe_select = document.getElementById("inputGroupSelect01");
+      artifacts["recipeLocation"] =
+        recipe_select.options[recipe_select.selectedIndex].text;
+    } catch {
+      console.error(error);
+    }
+    //Store new artifact placement in local storage
+    let storeString = JSON.stringify(artifacts);
+    console.log(storeString);
+    let testing = JSON.parse(storeString);
+    console.log(testing);
+    localStorage.setItem("oldSpiceMap", JSON.stringify(artifacts));
+    console.log(JSON.stringify(artifacts));
+    let test = localStorage.getItem("oldSpiceMap");
+
+    console.log(test);
+    isAdminPanelOpen = false;
+    if (badInput) {
+      alert("Error. Inputs must be between 0 and " + MaxCoord);
+      return false;
+    } else {
+      document.getElementById("admin_form").remove();
+      alert("Reload page to finish artifact placement update");
+    }
+  }
+}
+/**
+ * creates an object with x and y cordinates
+ * @param {number} cordx x cordinate
+ * @param {number} cordy y cordinate
+ * @return {object} x and y coordinates
+ */
+function setCoordinates(cordx, cordy) {
+  let position = new Object();
+  let x = parseInt(cordx);
+  let y = parseInt(cordy);
+  if (isNaN(x)) x = Math.floor(Math.random() * MaxCoord);
+  if (isNaN(y)) y = Math.floor(Math.random() * MaxCoord);
+  position["x"] = x;
+  position["y"] = y;
+
+  return position;
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Event.html">Event</a></li><li><a href="EventManager.html">EventManager</a></li><li><a href="Map.html">Map</a></li><li><a href="Player.html">Player</a></li><li><a href="Vector.html">Vector</a></li></ul><h3>Global</h3><ul><li><a href="global.html#admin_init">admin_init</a></li><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#degreeToRad">degreeToRad</a></li><li><a href="global.html#filledArray">filledArray</a></li><li><a href="global.html#filledArray2">filledArray2</a></li><li><a href="global.html#findMax">findMax</a></li><li><a href="global.html#normalize">normalize</a></li><li><a href="global.html#onCancelAdminInit">onCancelAdminInit</a></li><li><a href="global.html#polarToCoordinate">polarToCoordinate</a></li><li><a href="global.html#randomPlacement">randomPlacement</a></li><li><a href="global.html#setArtifacts">setArtifacts</a></li><li><a href="global.html#setCoordinates">setCoordinates</a></li><li><a href="global.html#setMap">setMap</a></li><li><a href="global.html#setRandMap">setRandMap</a></li><li><a href="global.html#setStoredMap">setStoredMap</a></li><li><a href="global.html#validateArray2Size">validateArray2Size</a></li><li><a href="global.html#validateArraySize">validateArraySize</a></li><li><a href="global.html#validateFloat">validateFloat</a></li><li><a href="global.html#validateMapPosition">validateMapPosition</a></li><li><a href="global.html#validateSafeInt">validateSafeInt</a></li><li><a href="global.html#validateType">validateType</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Mon Jun 06 2022 17:23:54 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

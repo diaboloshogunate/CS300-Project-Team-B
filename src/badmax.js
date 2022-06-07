@@ -1,4 +1,10 @@
 class BadMax extends Cell {
+    backgroundColor = `#860000`
+
+    get name () {
+        return `Bad Max`
+    }
+
     onPlayerCollision(player) {
         super.onPlayerCollision(player);
         let roll  = Math.random()

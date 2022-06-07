@@ -1,30 +1,34 @@
 class Pentium extends Planet {
     backgroundColor = `#5ac5f3`
     isHidden = true
-    #recipe
-    #number
+    hasRecipe
+    number
 
-    // TODO random position
-    constructor(position, number, hasRecipe) {
-        super(position);
-        this.#number = number || 0
-        this.#recipe = hasRecipe || false
+    /**
+     * @param {number} number number of planet
+     * @param {boolean} hasRecipe if the planet has a recipe
+     */
+    constructor(number, hasRecipe) {
+        super();
+        this.number = number || 0
+        this.hasRecipe = !!hasRecipe
     }
 
+    /**
+     * planets name
+     * @returns {string}
+     */
     get name () {
-        return `Pentium-${this.#number}`
+        return `Pentium ${this.number}`
     }
 
-    get number () {
-        return this.#number
-    }
-
-    get hasRecipe () {
-        return this.#recipe
-    }
-
-    takeRecipe() {
-        this.#recipe = false
+    /**
+     * give the recipe to a player
+     * @param player the player to give the recipe to
+     */
+    takeRecipe(player) {
+        this.hasRecipe   = false
+        player.hasRecipe = true
     }
 
     /**
@@ -35,6 +39,6 @@ class Pentium extends Planet {
         if(!player instanceof Player)
             throw `onPlayerCollision requires the player is passed in as an argument`
         console.log('Collided with pentium')
-        this.eventManager.trigger(Event.playerMessage,  `Collision with Pentium ${this.#number}`)
+        this.eventManager.trigger(Event.playerMessage,  `Collision with Pentium ${this.number}`)
     }
 }
