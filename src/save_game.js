@@ -19,6 +19,9 @@ function save_game() {
     player_save["mapSize"] = map.size;
     console.log(player_save);
     localStorage.setItem("user_" + name, JSON.stringify(player_save));
+    retrievePlayer = localStorage.getItem("user_" + name);
+    load = JSON.parse(retrievePlayer);
+    console.log("load", load);
   } catch (error) {
     console.log(error);
   }
@@ -58,7 +61,7 @@ function load_game() {
     console.log(error);
   }
   */
-  render();
+  // render();
 
   return false;
 }
