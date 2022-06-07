@@ -85,7 +85,7 @@ class Map {
      * @returns {Vector}
      */
     getRandomCellPosition() {
-        return new Vector(Math.floor(Math.random() * this.cells.length) + 1, Math.floor(Math.random() * this.cells.length) + 1)
+        return new Vector(Math.floor(Math.random() * this.cells.length - 1) + 1, Math.floor(Math.random() * this.cells.length - 1) + 1)
     }
 
     /**

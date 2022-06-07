@@ -2,6 +2,7 @@
  * class for a player
  */
 class Player {
+  #_state
   #_position;
   #_energy;
   #_energyCapacity;
@@ -29,6 +30,18 @@ class Player {
     this.position = position || new Vector(0, 0);
     this.#_eventManager = new EventManager()
     this.#_eventManager.trigger(Event.playerMessage, `All Systems Ready`)
+    this.#_state = PlayerState.Space
+  }
+
+  get state()
+  {
+    return this.#_state
+  }
+
+  set state(value)
+  {
+    validateType(value, PlayerState)
+    this.#_state = value
   }
 
   /**
@@ -203,6 +216,14 @@ class Player {
         this.energy -= 10;
       }
 
+      const currentCell = this.map.get(this.position)
+      switch (true) {
+        case currentCell instanceof AbandonedFreighter:
+          this.state = PlayerState.Freighter
+          break
+        default:
+          break
+      }
       this.supplies = this.supplies - 2;
     }
   }

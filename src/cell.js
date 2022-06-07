@@ -19,11 +19,6 @@ class Cell {
         this.isHidden = value
     }
 
-    // todo
-    playerChoices(player) {
-        // return array of string actions and the callable they will run if the player choose it?
-    }
-
     /**
      * hand player collision
      * @param {Player} player

@@ -99,7 +99,7 @@ const validateFloat = (value) => {
  * @param {*} type
  */
 const validateType = (value, type) => {
-    if(value instanceof type === false)
+    if(!(value instanceof type))
         throw `Invalid type. value must be an instance of ${type}. Provided ${value.name}`
 }
 
